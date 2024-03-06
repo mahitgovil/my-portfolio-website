@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/my-portfolio-website/static/css/main.4617f53e.css",
-    "main.js": "/my-portfolio-website/static/js/main.57135f92.js",
+    "main.css": "/my-portfolio-website/static/css/main.c455a231.css",
+    "main.js": "/my-portfolio-website/static/js/main.e87e234a.js",
     "static/media/Screenshot (275).png": "/my-portfolio-website/static/media/Screenshot (275).0db999989bcdcfbe687d.png",
+    "static/media/coffeeShop.png": "/my-portfolio-website/static/media/coffeeShop.219f555d4287c6326a61.png",
     "static/media/netflixClone.png": "/my-portfolio-website/static/media/netflixClone.18b03f8557e6905e585f.png",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/my-portfolio-website/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fontawesome-webfont.eot": "/my-portfolio-website/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
@@ -15,11 +16,11 @@
     "static/media/chatApp.png": "/my-portfolio-website/static/media/chatApp.c6e58ebdc768d6584151.png",
     "static/media/todoList.png": "/my-portfolio-website/static/media/todoList.e37630c0241d16307db7.png",
     "index.html": "/my-portfolio-website/index.html",
-    "main.4617f53e.css.map": "/my-portfolio-website/static/css/main.4617f53e.css.map",
-    "main.57135f92.js.map": "/my-portfolio-website/static/js/main.57135f92.js.map"
+    "main.c455a231.css.map": "/my-portfolio-website/static/css/main.c455a231.css.map",
+    "main.e87e234a.js.map": "/my-portfolio-website/static/js/main.e87e234a.js.map"
   },
   "entrypoints": [
-    "static/css/main.4617f53e.css",
-    "static/js/main.57135f92.js"
+    "static/css/main.c455a231.css",
+    "static/js/main.e87e234a.js"
   ]
 }
