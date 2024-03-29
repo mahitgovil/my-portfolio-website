@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-portfolio-website/static/css/main.9b0a558f.css",
-    "main.js": "/my-portfolio-website/static/js/main.d0b98857.js",
+    "main.css": "/my-portfolio-website/static/css/main.966e070c.css",
+    "main.js": "/my-portfolio-website/static/js/main.80632661.js",
     "static/media/Screenshot (275).png": "/my-portfolio-website/static/media/Screenshot (275).0db999989bcdcfbe687d.png",
     "static/media/coffeeShop.png": "/my-portfolio-website/static/media/coffeeShop.219f555d4287c6326a61.png",
     "static/media/netflixClone.png": "/my-portfolio-website/static/media/netflixClone.18b03f8557e6905e585f.png",
@@ -17,11 +17,11 @@
     "static/media/chatApp.png": "/my-portfolio-website/static/media/chatApp.c6e58ebdc768d6584151.png",
     "static/media/todoList.png": "/my-portfolio-website/static/media/todoList.e37630c0241d16307db7.png",
     "index.html": "/my-portfolio-website/index.html",
-    "main.9b0a558f.css.map": "/my-portfolio-website/static/css/main.9b0a558f.css.map",
-    "main.d0b98857.js.map": "/my-portfolio-website/static/js/main.d0b98857.js.map"
+    "main.966e070c.css.map": "/my-portfolio-website/static/css/main.966e070c.css.map",
+    "main.80632661.js.map": "/my-portfolio-website/static/js/main.80632661.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b0a558f.css",
-    "static/js/main.d0b98857.js"
+    "static/css/main.966e070c.css",
+    "static/js/main.80632661.js"
   ]
 }
