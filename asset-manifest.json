@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/my-portfolio-website/static/css/main.74dafe96.css",
-    "main.js": "/my-portfolio-website/static/js/main.8ec3193c.js",
+    "main.js": "/my-portfolio-website/static/js/main.b5b8123d.js",
     "static/media/Screenshot (275).png": "/my-portfolio-website/static/media/Screenshot (275).0db999989bcdcfbe687d.png",
     "static/media/coffeeShop.png": "/my-portfolio-website/static/media/coffeeShop.219f555d4287c6326a61.png",
     "static/media/plantDiseasePrediction.png": "/my-portfolio-website/static/media/plantDiseasePrediction.892c64297bbe582b9409.png",
@@ -19,10 +19,10 @@
     "static/media/todoList.png": "/my-portfolio-website/static/media/todoList.e37630c0241d16307db7.png",
     "index.html": "/my-portfolio-website/index.html",
     "main.74dafe96.css.map": "/my-portfolio-website/static/css/main.74dafe96.css.map",
-    "main.8ec3193c.js.map": "/my-portfolio-website/static/js/main.8ec3193c.js.map"
+    "main.b5b8123d.js.map": "/my-portfolio-website/static/js/main.b5b8123d.js.map"
   },
   "entrypoints": [
     "static/css/main.74dafe96.css",
-    "static/js/main.8ec3193c.js"
+    "static/js/main.b5b8123d.js"
   ]
 }
