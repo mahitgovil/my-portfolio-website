@@ -1,3 +1,9 @@
+/* CS6.302 SSD Monsoon 2026 - External stylesheet
+   Add this to the existing HTML with:
+   <link rel="stylesheet" href="ssd-style.css">
+   No HTML changes are required for the styling rules below.
+*/
+
 :root {
     --primary: #243b53;
     --primary-dark: #102a43;
