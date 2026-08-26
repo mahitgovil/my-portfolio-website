@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c7dbbdb4.css",
+    "main.js": "/static/js/main.5dada2a8.js",
+    "static/media/Screenshot (275).png": "/static/media/Screenshot (275).0db999989bcdcfbe687d.png",
+    "static/media/coffeeShop.png": "/static/media/coffeeShop.219f555d4287c6326a61.png",
+    "static/media/plantDiseasePrediction.png": "/static/media/plantDiseasePrediction.892c64297bbe582b9409.png",
+    "static/media/MovieReviewApp.png": "/static/media/MovieReviewApp.39442040904774cf48ff.png",
+    "static/media/space.jpg": "/static/media/space.30af812c0364cc1327ce.jpg",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/notesKeeper.png": "/static/media/notesKeeper.60e3446927b1772e2161.png",
+    "static/media/stackoverflowClone.png": "/static/media/stackoverflowClone.3139985e7920ff759a43.png",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/sudokuSolver.png": "/static/media/sudokuSolver.6cc2c090a3a3bb0b47fe.png",
+    "static/media/chatApp.png": "/static/media/chatApp.c6e58ebdc768d6584151.png",
+    "static/media/todoList.png": "/static/media/todoList.e37630c0241d16307db7.png",
+    "index.html": "/index.html",
+    "main.c7dbbdb4.css.map": "/static/css/main.c7dbbdb4.css.map",
+    "main.5dada2a8.js.map": "/static/js/main.5dada2a8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7dbbdb4.css",
+    "static/js/main.5dada2a8.js"
+  ]
+}
