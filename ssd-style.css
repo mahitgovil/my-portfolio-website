@@ -11,16 +11,33 @@
 }
 
 /* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: var(--bg) !important;
   color: var(--text) !important;
   padding: 24px 12px 60px 12px;
+  overflow-x: hidden; /* prevent horizontal page scroll from any wide child */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 hr {
   border: none;
   border-top: 2px solid var(--border);
   margin: 18px 0;
+}
+
+/* keyboard accessibility */
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 /* ---------- Headings (title block) ---------- */
@@ -44,11 +61,13 @@ body > table:first-of-type {
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   padding: 0 !important;
+  overflow: hidden;         /* FIX: clip children to the rounded corners */
+  border-collapse: separate; /* required for border-radius to work reliably on <table> */
 }
 
-body > table:first-of-type > tbody > tr:first-child td,
-body > table:first-of-type tr:has(h1) td {
+body > table:first-of-type > tbody > tr:first-child td {
   background: transparent;
+  padding: 0 !important;    /* let h1#home own the padding, avoid double spacing */
 }
 
 /* content rows inside the title table (about/lecture/policy) get a white card look */
@@ -58,6 +77,15 @@ body > table:first-of-type tr td p {
   padding: 18px 20px;
   margin: 10px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  color: var(--text); /* FIX: card text must stay dark even inside the dark parent table */
+}
+
+/* FIX: a nested schedule-style table (e.g. Grading Distribution) that lives inside
+   a card <p>/<td> shouldn't also get the big card treatment stacked on top of it */
+body > table:first-of-type table[border="1"],
+body > table:first-of-type table[class="tg"] {
+  margin: 14px 0 !important;
+  box-shadow: none;
 }
 
 /* ---------- Top nav row ( | About | Lecture | ... ) ---------- */
@@ -67,6 +95,7 @@ body > table:first-of-type tr:nth-child(2) td {
   border-radius: 8px;
   margin: 10px;
   padding: 14px 10px !important;
+  color: #cdd8ff; /* FIX: the literal "|" separator text needs a light color too */
 }
 
 body > table:first-of-type tr:nth-child(2) a {
@@ -175,6 +204,15 @@ body > table:first-of-type a:hover {
   color: var(--accent);
 }
 
+/* links inside white cards must go back to the normal link color,
+   otherwise they'd inherit the light color above and vanish on white */
+body > table:first-of-type tr td p a {
+  color: var(--primary-light);
+}
+body > table:first-of-type tr td p a:hover {
+  color: var(--accent);
+}
+
 /* ---------- Staff & footer tables ---------- */
 table[width="10%"][border="0"] {
   background: transparent !important;
@@ -189,12 +227,23 @@ table[align="center"][border="0"]:has(#staff) {
   padding: 8px;
 }
 
-/* Important links + footer */
-p:has(a[href*="intranet"]) {
+/* Important links + footer (covers both <p> and <ul><li> renderings) */
+p:has(a[href*="intranet"]),
+ul:has(a[href*="intranet"]) {
   background: var(--card-bg);
   border-radius: 8px;
   padding: 12px 16px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  list-style: none;
+}
+
+/* final "go to top" / credits lines at the very bottom of the page */
+body > ul:last-of-type,
+body > ul:last-of-type li {
+  list-style: none;
+  padding-left: 0;
+  color: #7c8494;
+  text-align: center;
 }
 
 font[size="2"] {
@@ -210,15 +259,34 @@ font[size="2"] {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 750px) {
-  table[class="tg"], table[border="1"] {
-    width: 98% !important;
-    font-size: 0.85rem;
+  body {
+    padding: 16px 8px 40px 8px;
   }
+
+  table[class="tg"], table[border="1"] {
+    width: 100% !important;
+    font-size: 0.85rem;
+    display: block;        /* FIX: allow horizontal scroll instead of squashing columns */
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
   table[class="tg"] td, table[border="1"] td {
     padding: 6px 8px;
   }
+
   h1#home {
     font-size: 1.3rem;
     padding: 16px 10px;
+  }
+
+  body > table:first-of-type tr:nth-child(2) td {
+    padding: 10px 6px !important;
+  }
+
+  body > table:first-of-type tr:nth-child(2) a {
+    display: inline-block;
+    margin: 2px 4px;
   }
 }
