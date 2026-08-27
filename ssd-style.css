@@ -1,24 +1,28 @@
 /* ==========================================================================
    CS6.302 — Software System Development
-   Theme: "systems manual" — a quiet paper page with terminal-flavoured
-   accents (monospace labels, $-prompt section markers, hairline rules).
-   Ties into the course content itself: shell, git, databases, the web.
+   Theme: "systems blueprint" — the course teaches students to design and
+   read software systems, so the page borrows the vocabulary of a technical
+   drawing: a part-number tag, registration marks on every panel, a
+   node-numbered spine running down the schedule tables, and a sticky
+   coordinate-ruler nav. One deep blueprint-navy hero carries all the
+   boldness; everything else stays quiet paper and hairlines.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --bg:        #F4F5F1;   /* cool paper, not the usual warm cream */
-  --surface:   #FFFFFF;
-  --ink:       #1C2430;   /* deep navy-charcoal, primary text */
-  --muted:     #707A72;   /* secondary / "last updated" text */
-  --accent:    #2E6E62;   /* muted systems-teal — links, headings */
-  --accent-2:  #B5592E;   /* muted rust — dates, emphasis, hover */
-  --line:      #DADFD5;   /* hairline borders */
-  --line-dark: #1C2430;
-  --code-bg:   #EBEDE6;
+  --paper:     #F5F6F1;   /* page ground — cool, not the usual cream */
+  --panel:     #FFFFFF;
+  --ink:       #12181F;
+  --muted:     #6B746C;
+  --blueprint: #1B4B63;   /* deep schematic navy — hero only */
+  --blueprint-2: #245E7A;
+  --signal:    #E2762B;   /* rust-orange — the one "live wire" accent */
+  --accent:    #1F6F72;   /* teal — links, spine, structure */
+  --line:      #DBDFD6;
+  --code-bg:   #ECEFE7;
 
-  --font-display: 'Quicksand', sans-serif;
+  --font-display: 'Space Grotesk', 'Quicksand', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
 
@@ -28,210 +32,283 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-display);
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.65;
   color: var(--ink);
-  background: var(--bg);
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 42px 42px;
-  background-attachment: fixed;
-  padding: 32px 16px 64px;
+  background: var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+                     linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  padding: 28px 16px 64px;
 }
 
 a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  background-image: linear-gradient(var(--signal), var(--signal));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.18s ease, color 0.18s ease;
 }
-a:hover, a:focus-visible {
-  color: var(--accent-2);
-  border-bottom-color: var(--accent-2);
-}
-a:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+a:hover, a:focus-visible { color: var(--signal); background-size: 100% 1px; }
+a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--line);
-  margin: 18px 0;
-}
+hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
 
-/* ---- outer layout -------------------------------------------------------
-   The page is built from stacked <table> blocks; treat each as a "card"
-   on the paper grid rather than fight the markup. */
+/* ---- panels --------------------------------------------------------------
+   Each top-level <table> is a "sheet" on the drafting table: paper card,
+   hairline border, faint registration marks at the corners. */
 
 table {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 17px;
   color: var(--ink);
-  background: var(--surface);
-  max-width: 1000px;
+  background: var(--panel);
+  max-width: 980px;
   width: 100% !important;
-  margin: 0 auto 24px !important;
+  margin: 0 auto 26px !important;
   border-collapse: separate !important;
   border-spacing: 0 !important;
   border: 1px solid var(--line) !important;
-  border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(28, 36, 48, 0.04);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(18, 24, 31, 0.05);
+  position: relative;
+}
+
+table::before, table::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--accent);
+  opacity: 0.45;
+  pointer-events: none;
+}
+table::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+table::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+table table { box-shadow: none; margin: 12px auto !important; }
+table table::before, table table::after { display: none; }
+
+table td { padding: 13px 26px !important; }
+
+/* ---- hero ---------------------------------------------------------------- */
+
+table:first-of-type > tbody > tr:first-child > td,
+table:first-of-type > tr:first-child > td {
+  background: linear-gradient(160deg, var(--blueprint), var(--blueprint-2));
+  background-image:
+    linear-gradient(160deg, var(--blueprint), var(--blueprint-2)),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: auto, 28px 28px, 28px 28px;
+  border-radius: 3px 3px 0 0;
+  padding: 46px 32px 38px !important;
+  position: relative;
   overflow: hidden;
 }
 
-table table {
-  box-shadow: none;
-  margin: 12px auto !important;
-  border-radius: 6px;
+table:first-of-type > tbody > tr:first-child > td::before {
+  content: 'SSD · 6302';
+  position: absolute;
+  top: 16px; left: 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 3px 8px;
+  border-radius: 2px;
 }
-
-table td { padding: 14px 26px !important; }
-
-/* ---- masthead ------------------------------------------------------------ */
+table:first-of-type > tbody > tr:first-child > td::after {
+  content: 'REV · MONSOON 2026';
+  position: absolute;
+  bottom: 14px; right: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.45);
+}
 
 h1#home {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 30px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
   letter-spacing: -0.01em;
-  color: var(--ink);
-  margin: 6px 0 2px;
+  color: #FFFFFF;
+  margin: 8px 0 8px;
 }
-h1#home::before {
-  content: '$ ';
-  color: var(--accent-2);
-}
-
 h3 {
   font-weight: 500;
-  color: var(--muted);
-  margin: 2px 0;
-  font-size: 16px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  margin: 3px 0;
 }
-
-/* top anchor nav row: "|  About  |  Lecture...  |" */
-table > tbody > tr:nth-of-type(2) td,
-table > tr:nth-of-type(2) td {
-  text-align: center;
-  padding: 10px 16px !important;
-  background: var(--code-bg);
+table:first-of-type h3 + h3 {
+  color: var(--signal);
   font-family: var(--font-mono);
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
-table > tbody > tr:nth-of-type(2) a,
-table > tr:nth-of-type(2) a { border-bottom: none; }
 
-/* ---- section headings (About, Course Policy, Schedule, Staff…) --------- */
+/* ---- ruler nav ------------------------------------------------------------
+   second row of the hero table: turn it into a sticky coordinate ruler. */
+
+table:first-of-type > tbody > tr:nth-child(2) > td,
+table:first-of-type > tr:nth-child(2) > td {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--panel);
+  text-align: center;
+  padding: 12px 16px !important;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line);
+}
+table:first-of-type > tbody > tr:nth-child(2) hr,
+table:first-of-type > tr:nth-child(2) hr { display: none; }
+table:first-of-type > tbody > tr:nth-child(2) a,
+table:first-of-type > tr:nth-child(2) a { background-image: none; }
+table:first-of-type > tbody > tr:nth-child(2) a:hover,
+table:first-of-type > tr:nth-child(2) a:hover { color: var(--signal); }
+
+/* ---- section headings ----------------------------------------------------- */
 
 b[id] {
-  font-family: var(--font-mono);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 21px;
-  color: var(--accent);
-  display: inline-block;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   margin-bottom: 6px;
 }
 b[id]::before {
-  content: '# ';
-  color: var(--line-dark);
-  opacity: 0.35;
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--signal);
+  border-radius: 1px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
 }
 
-p b:not([id]) { color: var(--ink); }
+p b:not([id]) { color: var(--blueprint); }
 
-/* inline "[go to top]" links */
 a[href="#home"] {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted);
 }
 
-/* ---- lists --------------------------------------------------------------- */
+/* ---- lists ----------------------------------------------------------------- */
 
-ul { padding-left: 22px; margin: 8px 0; }
-li { margin-bottom: 4px; }
+ul { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 5px; }
 ul > li > b {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 15px;
   color: var(--accent);
 }
 
-/* ---- schedule / lab / exam tables ---------------------------------------- */
+/* ---- grade-distribution table ------------------------------------------- */
+
+table[border="1"] table td { text-align: center; padding: 10px 16px !important; }
+table[border="1"] table tr:first-child td {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--panel);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ---- schedule / lab / exam tables — the numbered spine -------------------- */
 
 table[border="1"] { border: 1px solid var(--line) !important; }
 
 .tg-7btt, .tg-bobw {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--surface) !important;
+  color: var(--panel) !important;
   background: var(--ink) !important;
   padding: 10px 14px !important;
   border: none !important;
 }
 
 .tg-c3ow, .tg-8d8j {
-  font-size: 16px;
-  padding: 10px 14px !important;
-  border: 1px solid var(--line) !important;
+  font-size: 15px;
+  padding: 9px 14px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--line) !important;
   text-align: center;
 }
 
-/* zebra striping keyed off the lecture-number cell */
+/* the No. column becomes a running spine down the left of the table */
+.tg-c3ow:first-child, .tg-8d8j:first-child {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent);
+  border-left: 3px solid var(--accent) !important;
+  background: var(--code-bg);
+}
+
 tbody tr:nth-child(even) .tg-c3ow,
 tbody tr:nth-child(even) .tg-8d8j {
   background: var(--code-bg);
 }
+tbody tr:nth-child(even) .tg-c3ow:first-child,
+tbody tr:nth-child(even) .tg-8d8j:first-child {
+  background: #E2E9E0;
+}
 
-/* date column reads like a log timestamp */
+/* date column reads like a schematic timestamp */
 .tg-c3ow:nth-child(2), .tg-8d8j:nth-child(2) {
   font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--accent-2);
-}
-
-/* grading distribution table */
-table[border="1"] table td { text-align: center; }
-table[border="1"] table tr:first-child td {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  background: var(--ink);
-  color: var(--surface);
-  text-transform: uppercase;
   font-size: 13px;
-  letter-spacing: 0.03em;
+  color: var(--signal);
 }
 
-/* ---- misc ------------------------------------------------------------- */
+/* ---- misc -------------------------------------------------------------- */
 
-.light-text-row { color: var(--muted); }
+.light-text-row { color: var(--muted); font-size: 15px; }
 
-#txt {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--muted);
-}
+#txt { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 
-/* footer credit line */
 table:last-of-type td { text-align: center; }
-table:last-of-type font[size="2"] {
-  color: var(--muted);
-  font-size: 13px !important;
-}
+table:last-of-type font[size="2"] { color: var(--muted); font-size: 12px !important; }
 
-/* ---- responsive --------------------------------------------------------- */
+/* ---- responsive ---------------------------------------------------------- */
 
 @media (max-width: 720px) {
-  body { font-size: 16px; padding: 16px 8px 48px; }
-  table td { padding: 12px 14px !important; }
-  h1#home { font-size: 22px; }
-  table[border="1"] table { font-size: 13px; }
+  body { font-size: 15px; padding: 16px 8px 48px; background-size: 28px 28px; }
+  table td { padding: 11px 14px !important; }
+  h1#home { font-size: 24px; }
+  table:first-of-type > tbody > tr:first-child > td,
+  table:first-of-type > tr:first-child > td { padding: 36px 18px 28px !important; }
+  table:first-of-type > tbody > tr:first-child > td::before,
+  table:first-of-type > tbody > tr:first-child > td::after { display: none; }
+  table[border="1"] table { font-size: 12px; }
 }
 
-/* ---- reduced motion ------------------------------------------------------ */
+/* ---- reduced motion -------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
