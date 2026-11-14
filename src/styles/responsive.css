@@ -1,0 +1,40 @@
+/* Shared responsive rules. Imported last (see src/index.js) so it wins over the per-section files. */
+
+/* media never wider than its container */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* AOS fade-left/right start 100px off to the side, which creates a horizontal scrollbar (desktop too)
+   and makes mobile browsers widen the layout viewport. clip (unlike hidden) does not create a scroll container. */
+#about {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+@media (max-width: 768px) {
+  /* safety net for anything else that pokes out */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* section headings (About / What I do / Projects / Get in Touch / Experience) */
+  body .site-heading h2 {
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+  }
+
+  body .site-heading h4 {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  /* the decorative lines either side of a heading (-45% / 40% wide) run off a 320px screen */
+  body .site-heading h2::before,
+  body .site-heading h2::after,
+  body .site-heading h4::before,
+  body .site-heading h4::after {
+    display: none;
+  }
+}

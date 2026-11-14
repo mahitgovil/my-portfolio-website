@@ -1,3 +1,10 @@
+#navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
 nav.navbar {
   position: absolute;
   width: 100%;
@@ -8,7 +15,7 @@ nav.navbar {
 }
 
 .logo {
-  font-size: 40px;
+  font-size: 50px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -17,43 +24,28 @@ nav.navbar {
 }
 
 .nav-link {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #fff;
   /* margin-right: 30px; */
   font-family: "Poppins", sans-serif;
-  transition: all 0.5s ease;
 }
 
-#navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  transition: background-color 0.3s ease;
+/* right-align the menu (a fixed 61.5% margin pushed it past the viewport edge) */
+.ml-auto {
+  margin-left: auto !important;
 }
 
 #navbar.scrolled {
   background-color: #000;
+  /* hairline so the black bar stays defined over the dark Skills / Contact sections */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09);
 }
 
 a {
   cursor: pointer;
-}
-
-.navbar li Link {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  padding-bottom: 10px;
-}
-
-.navbar li Link:hover {
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: underline;
 }
 
 .active {
@@ -62,14 +54,80 @@ a {
   text-underline-offset: 8px; /* This will add space between the text and the underline */
 }
 
-.ml-auto {
-  margin-left: 68% !important;
+/* ---------- nav links ----------
+   The whole padded area is the link (not just the text), with a sliding underline
+   for hover / focus / current section, and instant tap feedback. */
+.navbar-nav .nav-link {
+  padding: 0;
+}
+
+.navbar-nav .nav-link a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar-nav .nav-link a::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 4px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.navbar-nav .nav-link a:hover,
+.navbar-nav .nav-link a:focus-visible {
+  color: #fff;
+}
+
+.navbar-nav .nav-link a:hover::after,
+.navbar-nav .nav-link a:focus-visible::after,
+.navbar-nav .nav-link a.active::after {
+  transform: scaleX(1);
+}
+
+/* the underline comes from ::after now, so drop the old text-decoration for nav links */
+.navbar-nav .nav-link a.active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-nav .nav-link a:active {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.navbar-nav .nav-link a:focus-visible,
+.logo:focus-visible,
+.navbar-toggler:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.logo {
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .bgimage {
   height: 100vh;
-  background: url("../../public/assets/Screenshot\ \(275\).png");
-  background-size: cover;
+  /* The hero canvas (space.jpg) fully covers this section, so the old 2.2MB screenshot
+     background was downloaded and decoded for nothing. */
+  background: #05060a;
   position: relative;
 }
 
@@ -103,43 +161,263 @@ nav.fixed-top {
 
 /* <--------------------------------------------- CSS for mouse icon -----------------------------------------------------> */
 .mouse-icon {
-  background: rgba(0, 0, 0, 0.69) none repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0.55);
   border: 3px solid #fff;
-  border-radius: 15px;
+  border-radius: 18px;
   bottom: 30px;
-  height: 42px;
+  height: 52px;
   left: 0;
   margin: auto;
   position: absolute;
   right: 0;
-  width: 30px;
+  width: 32px;
   z-index: 2;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* invisible, larger hit area (~48x68) so it is easy to tap or hit with a cursor */
+.mouse-icon::before {
+  content: "";
+  position: absolute;
+  inset: -8px -8px;
+}
+
+.mouse-icon:hover,
+.mouse-icon:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+  transform: translateY(-4px);
+}
+
+.mouse-icon:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.mouse-icon:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
 }
 
 .scroller {
-  width: 3px;
-  height: 8px;
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
+  width: 4px;
+  height: 10px;
+  margin: 8px auto 0;
   position: relative;
-  border-radius: 25%;
+  border-radius: 4px;
   background-color: #fff;
-  animation-name: scroll;
-  animation-duration: 1.3s;
-  animation-timing-function: cubic-bezier(0.15, 0.41, 0.69, 0.94);
-  animation-iteration-count: infinite;
+  animation: scroll 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
+/* the wheel dot now actually travels down the mouse and fades out */
 @keyframes scroll {
   0% {
     opacity: 0;
+    transform: translateY(0);
   }
-  10% {
-    transform: translateY(5);
+  20% {
     opacity: 1;
   }
   100% {
-    transform: translateY(25px);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* short landscape phones: no room for it below the tagline */
+@media (max-height: 500px) {
+  .mouse-icon {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroller {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* <--------------------------------------------- Responsive ------------------------------------------------------> */
+/* Mobile / tablet: bootstrap navbar-expand-lg collapses the menu below 992px */
+@media (max-width: 991.98px) {
+  nav.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .logo {
+    font-size: 2rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* burger button: 44x44 touch target, three bars that morph into an X */
+  .navbar-toggler {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+
+  .navbar-toggler:active {
+    transform: scale(0.93);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+
+  .burger {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 18px;
+  }
+
+  .burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transition: top 0.3s ease, transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  .burger span:nth-child(1) {
+    top: 0;
+  }
+  .burger span:nth-child(2) {
+    top: 8px;
+  }
+  .burger span:nth-child(3) {
+    top: 16px;
+  }
+
+  .navbar-toggler[aria-expanded="true"] .burger span:nth-child(1) {
+    top: 8px;
+    transform: rotate(45deg);
+  }
+  .navbar-toggler[aria-expanded="true"] .burger span:nth-child(2) {
     opacity: 0;
   }
+  .navbar-toggler[aria-expanded="true"] .burger span:nth-child(3) {
+    top: 8px;
+    transform: rotate(-45deg);
+  }
+
+  /* solid background while the drawer is open so links stay readable over the hero */
+  #navbar.menu-open {
+    background-color: #000;
+  }
+
+  .ml-auto {
+    margin-left: 0 !important;
+  }
+
+  /* Drawer slides open/closed (animated 0fr -> 1fr row) instead of popping in.
+     visibility keeps the hidden links out of the tab order once it has closed. */
+  .navbar-collapse.collapse {
+    display: grid !important;
+    align-items: stretch; /* bootstrap centers it, which stops the list shrinking into the 0fr row */
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.3s ease, visibility 0s linear 0.3s;
+  }
+
+  .navbar-collapse.collapse.show {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.3s ease, visibility 0s;
+  }
+
+  .navbar-nav {
+    margin-top: 0; /* global ul { margin-block: 1em } in Footer.css */
+    margin-bottom: 0;
+    min-height: 0;
+    max-height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .navbar-nav .nav-link:first-child {
+    margin-top: 0.5rem;
+  }
+
+  .navbar-nav .nav-link:last-child {
+    margin-bottom: 1rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0;
+    font-size: 16px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  /* links fade in one after another as the drawer opens */
+  .navbar-collapse.show .nav-link {
+    opacity: 1;
+    transform: none;
+  }
+  .navbar-collapse.show .nav-link:nth-child(1) {
+    transition-delay: 0.05s;
+  }
+  .navbar-collapse.show .nav-link:nth-child(2) {
+    transition-delay: 0.09s;
+  }
+  .navbar-collapse.show .nav-link:nth-child(3) {
+    transition-delay: 0.13s;
+  }
+  .navbar-collapse.show .nav-link:nth-child(4) {
+    transition-delay: 0.17s;
+  }
+  .navbar-collapse.show .nav-link:nth-child(5) {
+    transition-delay: 0.21s;
+  }
+  .navbar-collapse.show .nav-link:nth-child(6) {
+    transition-delay: 0.25s;
+  }
+
+  /* each menu entry is a full-width 44px+ tap target */
+  .navbar-nav .nav-link a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 0.5rem;
+    color: #fff;
+  }
+
+  .navbar-nav .nav-link a::after {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-collapse.collapse,
+  .navbar-nav .nav-link,
+  .burger span,
+  .navbar-nav .nav-link a::after {
+    transition: none !important;
+  }
+}
+
+/* iOS/Android: 100vh includes the collapsing URL bar, svh does not */
+.bgimage {
+  height: 100vh;
+  height: 100svh;
 }

@@ -41,7 +41,7 @@ export default function Skills() {
               <div className="service-icon">
                 <i className="fa fa-github"></i>
               </div>
-              <h4>Version Control and Collaboration</h4>
+              <h4>Version Control & Collaboration</h4>
               <p>
                 Experienced in using Git for version control, I collaborate
                 effectively with teams using platforms like GitHub. I understand
@@ -55,6 +55,7 @@ export default function Skills() {
               </div>
             </div>
           </div>
+
           <div className="col-md-4">
             <div className="single-service">
               <div className="service-icon">
@@ -101,9 +102,9 @@ export default function Skills() {
               </div>
               <h4>API Integration</h4>
               <p>
-                Skilled in building and consuming RESTful APIs, I seamlessly
-                integrate third-party services and functionalities to enhance
-                the overall user experience.
+                Skilled in building and consuming RESTful APIs. Leveraging this
+                skill set, I seamlessly integrate third-party services and
+                functionalities to enhance the overall user experience.
               </p>
               <div className="service-hover">
                 <a href="#">

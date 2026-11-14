@@ -1,0 +1,43 @@
+/* Decorative layer: a slightly slanted edge at two section boundaries
+   (About > Skills, Projects > Contact). Pure CSS: no markup or script depends on this file.
+   Delete this file and its import in src/index.js to remove it.
+   (The numbered section markers and the oversized faint heading words that used to live here
+   were removed on request.) */
+
+:root {
+  --slant: clamp(22px, 4vw, 56px); /* about 2 degrees: noticeable, not dramatic */
+}
+
+/* About > Skills: Skills' top edge rises towards the right. The wedge it cuts away shows the About
+   section's paper background behind it. */
+#skills {
+  clip-path: polygon(0 var(--slant), 100% 0, 100% 100%, 0 100%);
+}
+
+/* Projects > Contact: the edge falls towards the right (mirrored, so the two slants feel hand-set
+   rather than repeated). It is drawn as a dark triangle in the bottom padding of Projects, so the
+   two sections never overlap. (An overlapping version made the navbar highlight "Projects" while
+   Contact was the section on screen.) */
+/* Contact's container has a 1rem top margin (Bootstrap mt-3) which used to collapse out of the
+   section and leave a thin light gap above it. flow-root keeps that margin inside the section, so
+   Contact starts exactly where Projects ends and the triangle meets it cleanly. */
+#contact {
+  display: flow-root;
+}
+
+/* The triangle reaches 2px into Contact (bottom: -2px, and 2px taller). On screens scaled to a
+   fractional size (125%, 150%, most phones) the bottom of the triangle and the top of Contact land
+   on a fractional pixel, and a perfectly butted join shows the page background as a thin light
+   line. Overlapping the two (same colour) leaves no edge for that to happen on. */
+#projects::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: calc(var(--slant) + 2px);
+  background-color: var(--ink);
+  background-image: var(--grain);
+  clip-path: polygon(0 0, 100% calc(100% - 2px), 100% 100%, 0 100%);
+  pointer-events: none;
+}

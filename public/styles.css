@@ -7,17 +7,17 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* No CSS scroll-behavior: react-scroll already animates in-page jumps, and
+   stacking native smooth scrolling on top of it made every jump stutter.
+   Bootstrap 5.3 sets `:root { scroll-behavior: smooth }` (higher specificity, loaded later),
+   so this needs :root and !important to win. */
+:root,
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
 /* spacing on all sections */
 #skills,
 #projects {
   margin-top: 4rem;
-}
-#contact {
-  margin-top: 4rem;
-  padding-bottom: 2rem;
-  padding-top: 1rem;
 }

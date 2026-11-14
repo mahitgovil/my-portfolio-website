@@ -2,6 +2,8 @@ import React from "react";
 import "../styles/Footer.css";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer-area">
       <div className="container">
@@ -30,12 +32,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:mahitgovil08@gmail.com">
+                <a href="mailto:mahitgovil@live.com">
                   <i className="fa fa-envelope"></i>
                 </a>
               </li>
             </ul>
-            <p>© Copyright 2024. Designed & built by Mahit Govil.</p>
+            <p>© Copyright {currentYear}. Designed & built by Mahit Govil.</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,19 @@
+/* Skills is a dark (charcoal) section; the white cards stand out against it */
 #skills {
-  background-image: url('https://www.transparenttextures.com/patterns/gplay.png');
-  background-color: #f4f4f4;
+  background-color: var(--charcoal);
+  background-image: var(--grain);
+  color: var(--on-dark);
+}
+
+#skills .site-heading > h2 {
+  color: var(--on-dark-heading);
+}
+
+/* the little lines either side of the heading pick up the accent colour */
+#skills .site-heading h2::before,
+#skills .site-heading h2::after {
+  background: var(--accent);
+  opacity: 0.55;
 }
 
 .skills-section {
@@ -9,14 +22,14 @@
 }
 
 .site-heading {
-  margin-bottom: 50px;
+  padding-bottom: 50px;
   text-align: center;
 }
 
 .site-heading > h2 {
   color: #242424;
   display: inline-block;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 45px;
   font-weight: 800;
   letter-spacing: 0;
@@ -25,29 +38,9 @@
   text-transform: capitalize;
 }
 
-.site-heading > h2:before {
-  background: #333 none repeat scroll 0 0;
-  content: '';
-  height: 2px;
-  right: -45%;
-  position: absolute;
-  top: 52%;
-  width: 40%;
-}
-
-.site-heading > h2:after {
-  background: #333 none repeat scroll 0 0;
-  content: '';
-  height: 2px;
-  left: -45%;
-  position: absolute;
-  top: 50%;
-  width: 40%;
-}
-
 .single-service {
   background-color: #fff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
   padding: 30px;
   position: relative;
   text-align: center;
@@ -59,7 +52,8 @@
 }
 
 .single-service:hover {
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+  /* a plain 0.2-alpha shadow is invisible on a dark background, so it is deeper here */
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
   transform: translateY(-10px);
 }
 
@@ -93,8 +87,6 @@ p {
   color: #222;
   font-size: 30px;
   line-height: 82px;
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
 }
 
 .fa {
@@ -107,13 +99,13 @@ p {
 }
 
 .fa-laptop:before {
-  content: '\f109';
+  content: "\f109";
 }
 
 .service-icon i:after {
   background-color: #111;
   border-radius: 0px;
-  content: '';
+  content: "";
   height: 100%;
   left: 0;
   position: absolute;
@@ -131,13 +123,36 @@ p {
   border-style: solid;
   border-width: 0 0 50px 50px;
   bottom: -50px;
-  content: '';
+  content: "";
   cursor: pointer;
   opacity: 0;
-  --ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
+  --ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   position: absolute;
   right: -50px;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   visibility: visible;
+}
+
+/* <------------------------------------------- Responsive -----------------------------------------> */
+@media (max-width: 768px) {
+  .skills-section {
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
+
+  .single-service {
+    padding: 24px 20px;
+    margin-bottom: 24px;
+  }
+
+  .single-service > h4 {
+    font-size: 18px;
+  }
+}
+
+@media (hover: none) {
+  .single-service:hover {
+    transform: none;
+  }
 }
