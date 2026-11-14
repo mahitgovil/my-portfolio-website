@@ -1,0 +1,23 @@
+body,
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* spacing on all sections */
+#skills,
+#projects {
+  margin-top: 4rem;
+}
+#contact {
+  margin-top: 4rem;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}

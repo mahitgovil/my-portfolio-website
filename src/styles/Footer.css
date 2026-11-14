@@ -1,0 +1,69 @@
+.footer-area {
+  background: #212121 none repeat scroll 0 0;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.footer-area h3 {
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+}
+
+.footer-area ul {
+  margin: 20px 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.footer-area ul li {
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.footer-area ul li a {
+  background: #252525 none repeat scroll 0 0;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  font-size: 17px;
+  height: 40px;
+  line-height: 43px;
+  text-align: center;
+  width: 40px;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-thickness: initial;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}

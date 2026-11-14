@@ -1,0 +1,91 @@
+.site-heading {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.site-heading > h2 {
+  color: #242424;
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 45px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8rem;
+}
+
+.about__content-detail {
+  padding-top: 100px;
+  padding-bottom: 150px;
+}
+
+.about__content-details-para {
+  font-size: 18px;
+  color: #666;
+  max-width: 60rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.about__content-skills {
+  margin-top: 100px;
+  margin-bottom: 80px;
+}
+
+.about__content-title {
+  color: #242424;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skills__skill {
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  font-size: 0.8rem;
+  background: rgba(153, 153, 153, 0.2);
+  border-radius: 5px;
+  font-weight: 600;
+  color: #666;
+}
+
+#contact-redirect {
+  background: #212121 none repeat scroll 0 0;
+  border: 2px solid #212111;
+  color: #fff;
+  text-transform: uppercase;
+  display: block;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 30px;
+  padding: 10px 20px;
+  -webkit-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  border-radius: 2px;
+  float: left;
+  transition: all 0.3s ease;
+}
+
+#contact-redirect:hover {
+  background-color: white; /* This is the color the button will change to on hover */
+  color: black; /* This is the color the text will change to on hover */
+  transform: translateY(-8px); /* This will move the button 5px upwards */
+}
