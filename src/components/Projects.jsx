@@ -12,7 +12,7 @@ const STATUS_LABELS = {
 };
 
 // Thumbnails live in public/assets/projects/ (see the notes at the bottom of src/data/projects.js)
-const THUMB_BASE = `${process.env.PUBLIC_URL}/assets/projects`;
+const THUMB_BASE = `${import.meta.env.BASE_URL}assets/projects`;
 const THUMB_WIDTHS = [640, 960];
 const thumbSrcSet = (id, ext) =>
   THUMB_WIDTHS.map(w => `${THUMB_BASE}/${id}-${w}.${ext} ${w}w`).join(", ");

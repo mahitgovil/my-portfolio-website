@@ -6,7 +6,7 @@ import "../styles/animatedbackground.css";
 // Hero image variants live in public/assets/hero/ (generated from the original space.jpg).
 // The same <picture> is in the static shell in public/index.html (so the image downloads and
 // shows before this bundle has even loaded) - keep the two in sync.
-const HERO_BASE = `${process.env.PUBLIC_URL}/assets/hero/hero`;
+const HERO_BASE = `${import.meta.env.BASE_URL}assets/hero/hero`;
 const HERO_WIDTHS = [640, 960, 1280, 1920];
 const heroSrcSet = ext =>
   HERO_WIDTHS.map(w => `${HERO_BASE}-${w}.${ext} ${w}w`).join(", ");

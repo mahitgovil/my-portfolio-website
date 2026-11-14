@@ -2,30 +2,20 @@
   "name": "my-react-portfolio-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mahitgovil.github.io/my-portfolio-website",
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^1.21.0",
     "font-awesome": "^4.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
     "react-scroll": "^1.9.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "build-css": "tailwindcss build src/tailwind.css -o dist/output.css"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "start": "vite",
+    "build": "vite build",
+    "build-css": "tailwindcss build src/tailwind.css -o dist/output.css",
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "browserslist": {
     "production": [
@@ -43,6 +33,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.6.8",
-    "gh-pages": "^6.1.1"
+    "@vitejs/plugin-react": "^6.3.0",
+    "vite": "^8.3.8"
   }
 }
