@@ -10,36 +10,18 @@ nav.navbar {
   width: 100%;
   top: 0;
   z-index: 999;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.logo {
-  font-size: 50px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
+  padding: 10px 0; /* side gutters come from .container, so the links line up with the page text */
 }
 
 .nav-link {
-  font-size: 17px;
+  font-size: 1rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #fff;
-  /* margin-right: 30px; */
+  color: var(--hero-cream);
   font-family: "Poppins", sans-serif;
 }
 
-/* right-align the menu (a fixed 61.5% margin pushed it past the viewport edge) */
-.ml-auto {
-  margin-left: auto !important;
-}
-
 #navbar.scrolled {
-  background-color: #000;
+  background-color: var(--ink);
   /* hairline so the black bar stays defined over the dark Skills / Contact sections */
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09);
 }
@@ -64,8 +46,8 @@ a {
 .navbar-nav .nav-link a {
   position: relative;
   display: block;
-  padding: 0.5rem 1rem;
-  color: #fff;
+  padding: 0.6rem 1rem;
+  color: var(--hero-cream);
   text-decoration: none;
   border-radius: 6px;
   touch-action: manipulation;
@@ -80,7 +62,7 @@ a {
   right: 1rem;
   bottom: 4px;
   height: 2px;
-  background: #fff;
+  background: var(--hero-gold);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left center;
@@ -109,25 +91,14 @@ a {
 }
 
 .navbar-nav .nav-link a:focus-visible,
-.logo:focus-visible,
 .navbar-toggler:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
 
-.logo {
-  transition: opacity 0.2s ease;
-}
-
-.logo:hover {
-  opacity: 0.8;
-}
-
 .bgimage {
   height: 100vh;
-  /* The hero canvas (space.jpg) fully covers this section, so the old 2.2MB screenshot
-     background was downloaded and decoded for nothing. */
-  background: #05060a;
+  background: #04060b;
   position: relative;
 }
 
@@ -159,105 +130,34 @@ nav.fixed-top {
   box-shadow: 0px 0px 18px 1px rgba(0, 0, 0, 0.1);
 }
 
-/* <--------------------------------------------- CSS for mouse icon -----------------------------------------------------> */
-.mouse-icon {
-  background: rgba(0, 0, 0, 0.55);
-  border: 3px solid #fff;
-  border-radius: 18px;
-  bottom: 30px;
-  height: 52px;
-  left: 0;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  width: 32px;
-  z-index: 2;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.25s ease, background-color 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-/* invisible, larger hit area (~48x68) so it is easy to tap or hit with a cursor */
-.mouse-icon::before {
-  content: "";
-  position: absolute;
-  inset: -8px -8px;
-}
-
-.mouse-icon:hover,
-.mouse-icon:focus-visible {
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
-  transform: translateY(-4px);
-}
-
-.mouse-icon:active {
-  transform: translateY(0) scale(0.95);
-}
-
-.mouse-icon:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 4px;
-}
-
-.scroller {
-  display: block;
-  width: 4px;
-  height: 10px;
-  margin: 8px auto 0;
-  position: relative;
-  border-radius: 4px;
-  background-color: #fff;
-  animation: scroll 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-/* the wheel dot now actually travels down the mouse and fades out */
-@keyframes scroll {
-  0% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-}
-
-/* short landscape phones: no room for it below the tagline */
-@media (max-height: 500px) {
-  .mouse-icon {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroller {
-    animation: none;
-    opacity: 1;
-  }
-}
-
 /* <--------------------------------------------- Responsive ------------------------------------------------------> */
 /* Mobile / tablet: bootstrap navbar-expand-lg collapses the menu below 992px */
+/* the first link's text, not its padding, sits on the page's left edge */
+@media (min-width: 992px) {
+  .navbar-nav {
+    margin-block: 0;
+    margin-left: -1.5rem; /* link padding plus the 0.5rem Bootstrap puts on each item */
+  }
+}
+
+/* same gutter as the landing text */
+@media (max-width: 768px) {
+  #navbar > .container {
+    padding-inline: 1.5rem;
+  }
+}
+
 @media (max-width: 991.98px) {
   nav.navbar {
     padding-top: 10px;
     padding-bottom: 10px;
   }
 
-  .logo {
-    font-size: 2rem;
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-  }
-
   /* burger button: 44x44 touch target, three bars that morph into an X */
   .navbar-toggler {
+    margin-left: auto;
+    margin-right: -10px; /* line the bars, not the tap area, up with the gutter */
+    border: 0;
     min-width: 44px;
     min-height: 44px;
     display: inline-flex;
@@ -318,11 +218,7 @@ nav.fixed-top {
 
   /* solid background while the drawer is open so links stay readable over the hero */
   #navbar.menu-open {
-    background-color: #000;
-  }
-
-  .ml-auto {
-    margin-left: 0 !important;
+    background-color: var(--ink);
   }
 
   /* Drawer slides open/closed (animated 0fr -> 1fr row) instead of popping in.
@@ -387,22 +283,20 @@ nav.fixed-top {
   .navbar-collapse.show .nav-link:nth-child(5) {
     transition-delay: 0.21s;
   }
-  .navbar-collapse.show .nav-link:nth-child(6) {
-    transition-delay: 0.25s;
-  }
 
   /* each menu entry is a full-width 44px+ tap target */
   .navbar-nav .nav-link a {
     display: flex;
     align-items: center;
     min-height: 48px;
-    padding: 0 0.5rem;
-    color: #fff;
+    padding: 0;
+    color: var(--hero-cream);
   }
 
   .navbar-nav .nav-link a::after {
-    left: 0.5rem;
-    right: 0.5rem;
+    left: 0;
+    right: auto;
+    width: 2rem;
     bottom: 8px;
   }
 }

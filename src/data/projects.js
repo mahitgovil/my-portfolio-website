@@ -39,18 +39,6 @@ export const projects = [
     githubLink: "https://github.com/mahitgovil/Sudoku-Solver",
   },
   {
-    id: "notes-keeper",
-    imagePosition: "left center",
-    name: "Notes Keeper",
-    type: "Web Development",
-    description:
-      "A Google Keep-inspired notes app. Notes are stored in your browser, so they stay on your device.",
-    tech: ["React", "LocalStorage", "CSS"],
-    status: "live",
-    websiteLink: "https://mahitgovil.github.io/Notes-Keeper/",
-    githubLink: "https://github.com/mahitgovil/Notes-Keeper",
-  },
-  {
     id: "chat-app",
     name: "Chat App",
     type: "App Dev",
@@ -72,28 +60,6 @@ export const projects = [
     status: "open-source",
     websiteLink: "",
     githubLink: "https://github.com/mahitgovil/Plant-disease-prediction",
-  },
-  {
-    id: "todo-list",
-    name: "ToDo List",
-    type: "App Dev",
-    description: "A to-do list app built end to end on the MERN stack.",
-    tech: ["MongoDB", "Express", "React", "Node.js"],
-    status: "open-source",
-    websiteLink: "",
-    githubLink: "https://github.com/mahitgovil/ToDo-List",
-  },
-  {
-    id: "movie-review-app",
-    imagePosition: "left center",
-    name: "Movie Review App",
-    type: "Web Development",
-    description:
-      "A movie review app: a Java Spring Boot API with MongoDB, and a React front end.",
-    tech: ["React", "Java", "Spring Boot", "MongoDB"],
-    status: "open-source",
-    websiteLink: "",
-    githubLink: "https://github.com/mahitgovil/movie-review-app",
   },
   {
     id: "coffee-shop",

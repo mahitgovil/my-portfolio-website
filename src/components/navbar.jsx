@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-scroll";
 import "../styles/navbar.css";
-import AnimatedBackground from "./AnimatedBackground";
+import Hero from "./Hero";
 import { useScrollOffset, scrollDuration } from "./scrollConfig";
 
 export default function Nav() {
@@ -29,10 +29,6 @@ export default function Nav() {
         }${menuOpen ? " menu-open" : ""}`}
       >
         <div className="container">
-          {/* <!-- LOGO --> */}
-          <a className="navbar-brand logo" href="index.html">
-            MG
-          </a>
           {/* <!-- Burger button (visible below the lg breakpoint) --> */}
           <button
             className="navbar-toggler"
@@ -52,7 +48,7 @@ export default function Nav() {
             className={`navbar-collapse collapse${menuOpen ? " show" : ""}`}
             id="navbarCollapse"
           >
-            <ul className="navbar-nav ml-auto">
+            <ul className="navbar-nav">
               <li className="nav-link">
                 <Link
                   activeClass="active"
@@ -110,26 +106,6 @@ export default function Nav() {
                 </Link>
               </li>
               <li className="nav-item nav-link">
-                {/* <Link
-                  activeClass="active"
-                  to="https://mahitgovil.hashnode.dev/"
-                  spy={true}
-                  smooth={true}
-                  offset={scrollOffset}
-                  duration={scrollDuration}
-                >
-                  Blog
-                </Link> */}
-                <a
-                  href="https://mahitgovil.hashnode.dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                >
-                  Blog
-                </a>
-              </li>
-              <li className="nav-item nav-link">
                 <Link
                   activeClass="active"
                   to="contact"
@@ -148,20 +124,7 @@ export default function Nav() {
         </div>
       </nav>
       {/* <------------------------------------ Navbar End ----------------------------------------------> */}
-      <section className="bgimage" id="home">
-        <AnimatedBackground />
-        <Link
-          to="about"
-          href="#about"
-          smooth={true}
-          offset={scrollOffset}
-          duration={scrollDuration}
-          className="mouse-icon hidden-sm"
-          aria-label="Scroll down to the About section"
-        >
-          <span className="wheel scroller"></span>
-        </Link>
-      </section>
+      <Hero />
     </div>
   );
 }

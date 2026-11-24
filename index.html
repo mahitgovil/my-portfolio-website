@@ -14,16 +14,6 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     />
 
-    <!-- Hero placeholder: a 383-byte blurred copy of the space image, shown instantly
-         while the real image loads (it then fades in on top). -->
-    <style>
-      #large-header {
-        background: #05060a
-          url(data:image/jpeg;base64,/9j/2wBDAA4ODg4PDhASEhAXGBYYFyEfHBwfITIkJyQnJDJNMDgwMDgwTURSQz5DUkR6X1VVX3qMdnB2jKqYmKrWy9b/////2wBDAQ4ODg4PDhASEhAXGBYYFyEfHBwfITIkJyQnJDJNMDgwMDgwTURSQz5DUkR6X1VVX3qMdnB2jKqYmKrWy9b/////wgARCAASACADASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQCBv/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/aAAwDAQACEAMQAAAA4Cma21iS2Ed4NAF//8QAHBAAAgIDAQEAAAAAAAAAAAAAAQIAAxESMRAE/9oACAEBAAE/AB2V/OHGzNqsNCHOp5D2AEGKy2JqTiWMtdeqHOen0+Ds/8QAFREBAQAAAAAAAAAAAAAAAAAAASD/2gAIAQIBAT8AY//EABkRAAIDAQAAAAAAAAAAAAAAAABRARARIf/aAAgBAwEBPwCNR0Vf/9k=)
-          center / cover no-repeat;
-      }
-    </style>
-
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -53,55 +43,37 @@
 
   <body>
     <!-- Static hero "shell": painted as soon as the CSS is ready, without waiting for the
-         JS bundle. Because the hero image is in the HTML itself, the browser starts
-         downloading it immediately (in parallel with the JS) and shows it as soon as it
-         arrives. React replaces everything inside #root when it mounts, and the real hero
-         (AnimatedBackground.jsx) looks identical, so there is no visible jump.
-         Keep the image srcsets and the text in sync with AnimatedBackground.jsx. -->
+         JS bundle. React replaces everything inside #root when it mounts, and the real hero
+         (Hero.jsx) looks identical, so there is no visible jump.
+         Keep the text in sync with Hero.jsx. -->
     <div id="root">
-      <div id="large-header" class="large-header" style="height: 100vh">
-        <picture class="hero-bg">
-          <source
-            type="image/avif"
-            srcset="/assets/hero/hero-640.avif 640w, /assets/hero/hero-960.avif 960w, /assets/hero/hero-1280.avif 1280w, /assets/hero/hero-1920.avif 1920w"
-            sizes="100vw"
-          />
-          <source
-            type="image/webp"
-            srcset="/assets/hero/hero-640.webp 640w, /assets/hero/hero-960.webp 960w, /assets/hero/hero-1280.webp 1280w, /assets/hero/hero-1920.webp 1920w"
-            sizes="100vw"
-          />
-          <img
-            class="hero-bg__img"
-            src="/assets/hero/hero-1280.jpg"
-            srcset="/assets/hero/hero-640.jpg 640w, /assets/hero/hero-960.jpg 960w, /assets/hero/hero-1280.jpg 1280w, /assets/hero/hero-1920.jpg 1920w"
-            sizes="100vw"
-            alt=""
-            fetchpriority="high"
-            onload="this.classList.add('is-loaded'); window.__heroLoaded = true;"
-          />
-        </picture>
-        <h1 class="main-title">Hi! I'm Mahit <span class="thin">Govil</span></h1>
-        <p class="hero_desc hero-text">
-          Software Engineer &amp; Full-Stack Developer.
-        </p>
+      <section class="bgimage">
+      <div class="hero-bg"></div>
+      <!-- hidden until the intro reveals it (see hero.css); here so the text is in the HTML -->
+      <div class="hero">
+        <div class="container hero__inner">
+          <h1 class="hero__title">
+            <span class="hero__hi hero__reveal">Hi! I'm </span>
+            <span class="hero__name">
+              <span class="hero__first">Mahit</span>
+              <span class="hero__last">Govil</span>
+            </span>
+          </h1>
+          <p class="hero__lead hero__reveal">
+            Every click starts a journey. I build both ends of it, and the road
+            between.
+          </p>
+        </div>
       </div>
+      </section>
     </div>
     <script type="module" src="/src/index.jsx"></script>
-    <!-- defer: these used to block the page (and therefore the app bundle and the hero) until
-         downloaded. AnimatedBackground.jsx waits for gsap if it is not ready yet. -->
+    <!-- defer: this used to block the page until it had downloaded -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
-    ></script>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     ></script>
   </body>
 </html>

@@ -1,0 +1,72 @@
+/* Header */
+.large-header {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #05060a;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* Hero image: a responsive <picture> (AVIF / WebP / JPEG, 640-1920px).
+   The box is bigger than the screen and pushed right, so the nebula's ring sits beside the text
+   instead of behind it, and it fades out towards the text. --drift-x/y follow the cursor
+   (heroDust.js). The blurred placeholder behind it is defined in index.html so it shows instantly;
+   the real image fades in on top of it once it has loaded. */
+.hero-bg {
+  position: absolute;
+  top: -10%;
+  left: 8%;
+  width: 120%;
+  height: 120%;
+  z-index: 0;
+  display: block;
+  transform: translate3d(var(--drift-x, 0), var(--drift-y, 0), 0);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 38%);
+  mask-image: linear-gradient(to right, transparent 0, #000 38%);
+}
+
+.hero-bg__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero-bg__img.is-loaded {
+  opacity: 1;
+}
+
+/* The swarm (heroSwarm.js), above the image. It drifts further than the nebula does, so it
+   appears to float in front of it. */
+.hero-swarm {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(calc(var(--drift-x, 0px) * 1.6), calc(var(--drift-y, 0px) * 1.6), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg__img {
+    transition: none;
+  }
+}
+
+/* <------------------------------------------- Responsive -----------------------------------------> */
+@media (max-width: 768px) {
+  /* ring above, text below */
+  .hero-bg {
+    inset: 0 0 auto;
+    width: 100%;
+    height: 62%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+}
