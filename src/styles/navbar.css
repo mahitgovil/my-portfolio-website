@@ -16,24 +16,17 @@ nav.navbar {
 .nav-link {
   font-size: 1rem;
   font-weight: 500;
-  color: var(--hero-cream);
+  color: var(--heading);
   font-family: "Poppins", sans-serif;
 }
 
 #navbar.scrolled {
-  background-color: var(--ink);
-  /* hairline so the black bar stays defined over the dark Skills / Contact sections */
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09);
+  background-color: var(--bar);
+  box-shadow: 0 1px 0 var(--hairline);
 }
 
 a {
   cursor: pointer;
-}
-
-.active {
-  text-decoration: underline;
-  color: rgba(255, 255, 255, 0.75);
-  text-underline-offset: 8px; /* This will add space between the text and the underline */
 }
 
 /* ---------- nav links ----------
@@ -47,7 +40,7 @@ a {
   position: relative;
   display: block;
   padding: 0.6rem 1rem;
-  color: var(--hero-cream);
+  color: var(--heading);
   text-decoration: none;
   border-radius: 6px;
   touch-action: manipulation;
@@ -62,7 +55,7 @@ a {
   right: 1rem;
   bottom: 4px;
   height: 2px;
-  background: var(--hero-gold);
+  background: var(--gold-fill);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left center;
@@ -71,7 +64,7 @@ a {
 
 .navbar-nav .nav-link a:hover,
 .navbar-nav .nav-link a:focus-visible {
-  color: #fff;
+  color: var(--heading);
 }
 
 .navbar-nav .nav-link a:hover::after,
@@ -80,25 +73,24 @@ a {
   transform: scaleX(1);
 }
 
-/* the underline comes from ::after now, so drop the old text-decoration for nav links */
 .navbar-nav .nav-link a.active {
-  color: #fff;
+  color: var(--heading);
   text-decoration: none;
 }
 
 .navbar-nav .nav-link a:active {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: var(--press);
 }
 
 .navbar-nav .nav-link a:focus-visible,
 .navbar-toggler:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
 .bgimage {
   height: 100vh;
-  background: #04060b;
+  background: var(--page);
   position: relative;
 }
 
@@ -120,14 +112,6 @@ a {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-}
-
-nav.fixed-top {
-  position: fixed;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: black;
-  box-shadow: 0px 0px 18px 1px rgba(0, 0, 0, 0.1);
 }
 
 /* <--------------------------------------------- Responsive ------------------------------------------------------> */
@@ -155,7 +139,7 @@ nav.fixed-top {
 
   /* burger button: 44x44 touch target, three bars that morph into an X */
   .navbar-toggler {
-    margin-left: auto;
+    margin-left: 0;
     margin-right: -10px; /* line the bars, not the tap area, up with the gutter */
     border: 0;
     min-width: 44px;
@@ -170,7 +154,7 @@ nav.fixed-top {
 
   .navbar-toggler:active {
     transform: scale(0.93);
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: var(--press);
   }
 
   .navbar-toggler:focus {
@@ -190,7 +174,7 @@ nav.fixed-top {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background: #fff;
+    background: var(--heading);
     transition: top 0.3s ease, transform 0.3s ease, opacity 0.2s ease;
   }
 
@@ -218,7 +202,7 @@ nav.fixed-top {
 
   /* solid background while the drawer is open so links stay readable over the hero */
   #navbar.menu-open {
-    background-color: var(--ink);
+    background-color: var(--bar);
   }
 
   /* Drawer slides open/closed (animated 0fr -> 1fr row) instead of popping in.
@@ -290,7 +274,7 @@ nav.fixed-top {
     align-items: center;
     min-height: 48px;
     padding: 0;
-    color: var(--hero-cream);
+    color: var(--heading);
   }
 
   .navbar-nav .nav-link a::after {
@@ -314,4 +298,86 @@ nav.fixed-top {
 .bgimage {
   height: 100vh;
   height: 100svh;
+}
+
+/* ---------- light / dark ---------- */
+.theme-switch {
+  display: grid;
+  place-content: center;
+  min-width: 64px;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-switch:focus-visible {
+  outline: 2px solid var(--focus);
+  border-radius: 6px;
+}
+
+.theme-switch__track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 58px;
+  height: 30px;
+  padding: 0 7px;
+  border: 1.5px solid var(--heading);
+  border-radius: 15px;
+}
+
+.theme-switch svg {
+  position: relative;
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--heading);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-switch i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: var(--gold-fill);
+  transition: transform 0.25s ease;
+}
+
+.theme-switch[aria-checked="true"] i {
+  transform: translateX(28px);
+}
+
+/* the icon under the knob */
+.theme-switch[aria-checked="false"] .theme-switch__moon,
+.theme-switch[aria-checked="true"] .theme-switch__sun {
+  stroke: var(--ink);
+}
+
+/* on phones it sits before the menu button */
+@media (max-width: 991.98px) {
+  .theme-switch {
+    order: -2;
+  }
+
+  .navbar-toggler {
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch i {
+    transition: none;
+  }
 }

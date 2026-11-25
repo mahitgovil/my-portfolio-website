@@ -1,0 +1,84 @@
+/* Tech stack: skills.json in an editor window, typed out with the scroll */
+#skills {
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(4rem, 8vw, 7.5rem);
+  background: radial-gradient(ellipse 46% 48% at 50% 50%, var(--glow-soft), transparent); /* behind the window */
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+}
+
+.file {
+  margin-top: 2.5rem;
+  border: 1.5px solid var(--teal);
+  border-radius: 8px;
+  background: var(--term-bg);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+}
+
+.file .term__bar {
+  align-items: center;
+}
+
+.file .term__bar span {
+  margin-left: 0.75rem;
+  color: var(--text-muted);
+}
+
+#skills .file ol {
+  margin: 0;
+  padding: clamp(1.1rem, 2.5vw, 2rem);
+  list-style: none;
+  counter-reset: line;
+}
+
+.file li {
+  position: relative;
+  padding-left: 3rem;
+  line-height: 1.9;
+  counter-increment: line;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.file li.is-on {
+  opacity: 1;
+}
+
+.file li::before {
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+.file li:not(:first-child):not(:last-child) {
+  padding-left: 4.5rem;
+}
+
+.file b {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.file li span {
+  color: var(--gold);
+}
+
+@media (max-width: 991px) {
+  #skills > .container {
+    padding-inline: 3.25rem 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .file li,
+  .file li:not(:first-child):not(:last-child) {
+    padding-left: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .file li {
+    transition: none;
+  }
+}

@@ -4,13 +4,12 @@
 // Floor coordinates: +x runs down to the right, +y down to the left, z is up. The large server in the
 // middle stands on (0, 0). Each thing shows the eight pieces of the file it has as lit marks.
 
-const COLORS = {
-  gold: "226,176,108",
-  teal: "142,196,204",
-  cream: "224,221,214",
-};
-const LIT = "244,190,104";
-const FACE = { top: "#111a28", left: "#0b121d", right: "#080d16" };
+import { setHeroExit } from "./heroExit";
+import { getPalette } from "./theme";
+
+// set from the theme's palette before every frame
+let COLORS = getPalette();
+let FACE = COLORS.faces.teal; // of the machine being drawn
 
 const C30 = Math.cos(Math.PI / 6);
 const PIECES = 8;
@@ -128,9 +127,9 @@ function box(ctx, plan, cx, cy, sx, sy, z, h, stroke) {
 }
 
 function outline(ctx, plan, m) {
-  const bright = Math.min(1, 0.72 + m.flash * 0.28);
-  ctx.strokeStyle = `rgba(${m.flash > 0.3 ? LIT : COLORS[m.color]},${bright})`;
-  ctx.lineWidth = Math.max(0.9, 0.85 * plan.unit) + m.flash * 0.5;
+  const bright = Math.min(1, 0.9 + m.flash * 0.1);
+  ctx.strokeStyle = `rgba(${m.flash > 0.3 ? COLORS.lit : COLORS[m.color]},${bright})`;
+  ctx.lineWidth = Math.max(1.1, 1.05 * plan.unit) + m.flash * 0.5;
   ctx.lineJoin = "round";
 }
 
@@ -138,7 +137,7 @@ function mark(ctx, m, piece, x, y, w, h) {
   ctx.fillStyle = `rgba(${COLORS[m.color]},0.2)`;
   ctx.fillRect(x, y, w, h);
   if (m.lit[piece] > 0.01) {
-    ctx.fillStyle = `rgba(${LIT},${m.lit[piece]})`;
+    ctx.fillStyle = `rgba(${COLORS.lit},${m.lit[piece]})`;
     ctx.fillRect(x, y, w, h);
   }
 }
@@ -167,7 +166,7 @@ function server(ctx, plan, m, time, { cx, cy, s, units, uh, gap, first, total, p
       const r = Math.max(0.9, uh * 0.085);
       for (let k = 0; k < 3; k++) {
         const on = (time / 420 + u * 1.7 + k * 2.3 + first) % 3 < 1.6;
-        ctx.fillStyle = `rgba(${k === 1 ? LIT : COLORS[m.color]},${on ? 0.95 : 0.3})`;
+        ctx.fillStyle = `rgba(${k === 1 ? COLORS.lit : COLORS[m.color]},${on ? 0.95 : 0.3})`;
         ctx.beginPath();
         ctx.arc(s * 0.64 + k * s * 0.11, uh * 0.52, r, 0, Math.PI * 2);
         ctx.fill();
@@ -222,7 +221,7 @@ function windowFace(ctx, m, time, w, h) {
       line(9, 30 + i * 4.6, len, c, 0.7)
     );
   } else {
-    ctx.fillStyle = `rgba(${LIT},1)`;
+    ctx.fillStyle = `rgba(${COLORS.lit},1)`;
     ctx.font = "600 13px ui-monospace, Consolas, monospace";
     ctx.textBaseline = "alphabetic";
     ctx.fillText("$", 10, 27);
@@ -267,7 +266,7 @@ function ring(ctx, plan, m, { x, y, rx, ry }) {
       ctx.stroke();
     };
     arc(`rgba(${COLORS[m.color]},0.2)`);
-    if (m.lit[i] > 0.01) arc(`rgba(${LIT},${m.lit[i]})`);
+    if (m.lit[i] > 0.01) arc(`rgba(${COLORS.lit},${m.lit[i]})`);
   }
 }
 
@@ -353,6 +352,34 @@ function routeToYou(plan, you, machine) {
   return [[x, y], [machine.gx, y], [machine.gx, machine.gy]];
 }
 
+function drawExit(ctx, plan) {
+  const { x, bottom } = plan.exit;
+  const [cx, cy] = project(plan, 211, 179);
+  const points = [[cx, cy], [x, cy + Math.abs(cx - x) / C30 / 2], [x, bottom]];
+  const width = ctx.lineWidth;
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = `rgb(${COLORS.line})`;
+  ctx.beginPath();
+  points.forEach(p => ctx.lineTo(...p));
+  ctx.stroke();
+  // the same soft glow as the line in About, so the two meet
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = `rgba(${COLORS.line},0.2)`;
+  ctx.stroke();
+  ctx.lineWidth = width;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const head = (performance.now() / 9) % 500;
+  ctx.fillStyle = `rgb(${COLORS.lit})`;
+  for (let i = 0; i < 4; i++) {
+    const along = head - i * 12;
+    if (along < 0 || along > pathLength(points)) continue;
+    const [px, py] = pointAt(points, along);
+    ctx.beginPath();
+    ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
 // ---------- the view ----------
 
 export const isoView = {
@@ -361,7 +388,8 @@ export const isoView = {
   plan({ size, nameBox, hiTop }) {
     let box;
     let world = FULL;
-    if (size.w <= 768) {
+    const screen = window.innerWidth; // what the media queries measure
+    if (screen <= 768) {
       box = { x: size.w * 0.04, y: 64, w: size.w * 0.92, h: Math.max(70, hiTop - 12 - 64) };
       if (box.h < 200) world = MINI;
     } else {
@@ -372,7 +400,7 @@ export const isoView = {
     }
     const { left, right, top, bottom } = world.bounds;
     const unit = Math.min(2, box.w / (right - left), box.h / (bottom - top));
-    return {
+    const plan = {
       box,
       unit,
       homeX: box.x + box.w / 2 - ((left + right) / 2) * unit,
@@ -381,7 +409,17 @@ export const isoView = {
       oy: 0,
       machines: world.nodes.map(([kind, gx, gy, color, options = {}]) => ({ kind, gx, gy, color, ...options })),
       links: world.links,
+      exit: null,
     };
+    // the lowest corner of the scene sends a line off the bottom of the screen, on into About
+    if (screen >= 992) {
+      const x = plan.homeX + (211 - 179) * C30 * unit;
+      const y = plan.homeY + ((211 + 179) / 2) * unit;
+      const across = Math.min(120, (size.h - y) * 1.2);
+      plan.exit = { x: x - across, bottom: size.h };
+    }
+    setHeroExit(plan.exit && plan.exit.x);
+    return plan;
   },
 
   place(machines, drift, plan) {
@@ -393,22 +431,24 @@ export const isoView = {
   },
 
   drawLinks(ctx, links, plan) {
+    COLORS = getPalette();
     ctx.lineJoin = "round";
     ctx.lineWidth = Math.max(0.9, 0.85 * plan.unit);
     links.forEach(({ extra: [color, points, double] }) => {
-      ctx.strokeStyle = `rgba(${COLORS[color]},0.68)`;
+      ctx.strokeStyle = `rgba(${COLORS[color]},0.85)`;
       strokeRoute(ctx, plan, points);
       if (double) {
-        ctx.strokeStyle = `rgba(${COLORS[color === "gold" ? "teal" : "gold"]},0.42)`;
+        ctx.strokeStyle = `rgba(${COLORS[color === "gold" ? "teal" : "gold"]},0.55)`;
         strokeRoute(ctx, plan, points, 7);
       }
     });
+    if (plan.exit) drawExit(ctx, plan);
   },
 
   drawYouLinks(ctx, you, youLinks, plan) {
     ctx.setLineDash([4, 5]);
     ctx.lineWidth = Math.max(0.9, 0.85 * plan.unit);
-    ctx.strokeStyle = `rgba(${LIT},${0.6 * you.join})`;
+    ctx.strokeStyle = `rgba(${COLORS.lit},${0.6 * you.join})`;
     youLinks.forEach(({ b }) => strokeRoute(ctx, plan, routeToYou(plan, you, b)));
     ctx.setLineDash([]);
   },
@@ -422,13 +462,13 @@ export const isoView = {
     const total = pathLength(points);
     const head = smooth(t) * total;
     const alpha = Math.min(from.join, to.join);
-    const color = piece % 3 === 0 ? COLORS.teal : LIT;
+    const color = piece % 3 === 0 ? COLORS.teal : COLORS.lit;
     for (let i = 3; i >= 0; i--) {
       const along = head - i * 8.5;
       if (along < 0) continue;
       const [gx, gy] = pointAt(points, forward ? along : total - along);
       const [x, y] = project(plan, gx, gy, 1.5);
-      ctx.fillStyle = `rgba(${i ? color : "255,250,240"},${[1, 0.8, 0.5, 0.28][i] * alpha})`;
+      ctx.fillStyle = `rgba(${i ? color : COLORS.head},${[1, 0.8, 0.5, 0.28][i] * alpha})`;
       ctx.beginPath();
       ctx.arc(x, y, Math.max(1.6, 2 * plan.unit) * (1 - i * 0.1), 0, Math.PI * 2);
       ctx.fill();
@@ -439,6 +479,9 @@ export const isoView = {
     machines
       .slice()
       .sort((a, b) => a.gx + a.gy - (b.gx + b.gy)) // back to front
-      .forEach(m => DRAW[m.kind](ctx, plan, m, time));
+      .forEach(m => {
+        FACE = COLORS.faces[m.color];
+        DRAW[m.kind](ctx, plan, m, time);
+      });
   },
 };

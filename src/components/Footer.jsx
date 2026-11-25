@@ -1,45 +1,31 @@
 import React from "react";
 import "../styles/Footer.css";
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+// LinkedIn, GitHub and email are in the Contact section just above
+const LINKS = [
+  ["Twitter", "https://twitter.com/GovilMahit"],
+  ["Instagram", "https://www.instagram.com/mahitgovil"],
+];
 
+export default function Footer() {
   return (
-    <footer className="footer-area">
+    <footer className="footer">
       <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <h3>MahitGovil._</h3>
-            <ul>
-              <li>
-                <a href="https://www.linkedin.com/in/mahitgovil/">
-                  <i className="fa fa-linkedin"></i>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/mahitgovil">
-                  <i className="fa fa-github"></i>
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/GovilMahit">
-                  <i className="fa fa-twitter"></i>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/mahitgovil">
-                  <i className="fa fa-instagram"></i>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:mahitgovil@live.com">
-                  <i className="fa fa-envelope"></i>
-                </a>
-              </li>
-            </ul>
-            <p>© Copyright {currentYear}. Designed & built by Mahit Govil.</p>
-          </div>
-        </div>
+        <p>© {new Date().getFullYear()} Mahit Govil</p>
+        <ul>
+          {LINKS.map(([label, href]) => (
+            <li key={label}>
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="#home">
+              Back to top
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-scroll";
 import "../styles/hero.css";
 import AnimatedBackground from "./AnimatedBackground";
 import { startHeroDust } from "./heroDust";
-import { useScrollOffset, scrollDuration } from "./scrollConfig";
 
 // The landing screen. The text is also in the static shell in index.html - keep them in sync.
 
 export default function Hero() {
-  const scrollOffset = useScrollOffset();
   const [ready, setReady] = useState(false);
   const sectionRef = useRef(null);
   const heroRef = useRef(null);
@@ -30,12 +27,6 @@ export default function Hero() {
     });
   }, []);
 
-  const scrollProps = {
-    smooth: true,
-    offset: scrollOffset,
-    duration: scrollDuration,
-  };
-
   return (
     <section className="bgimage" id="home" ref={sectionRef}>
       <AnimatedBackground />
@@ -54,22 +45,12 @@ export default function Hero() {
             P2P BitTorrent system and a mini search engine.
           </p>
           <div className="hero__actions hero__reveal">
-            <Link
-              to="projects"
-              href="#projects"
-              className="hero__button"
-              {...scrollProps}
-            >
+            <a href="#projects" className="hero__button">
               See my projects
-            </Link>
-            <Link
-              to="contact"
-              href="#contact"
-              className="hero__link"
-              {...scrollProps}
-            >
+            </a>
+            <a href="#contact" className="hero__link">
               Get in touch
-            </Link>
+            </a>
             <span className="hero__social">
               <a
                 href="https://github.com/mahitgovil"

@@ -11,6 +11,8 @@
 //
 // The name is real text. While any block is missing it is hidden and drawn on the canvas instead.
 
+import { getPalette, onThemeChange } from "./theme";
+
 const PIECES = 8;
 const ALL = (1 << PIECES) - 1;
 const MAX_UPLOADS = 2;
@@ -22,8 +24,6 @@ const FLASH = 380; // ms a landed block stays gold
 const REFILL_DELAY = 420; // ms a knocked-out block stays away
 const HOLD = 3000; // ms a finished round is shown before the next
 
-const CREAM = "249,241,233";
-const GOLD = "240,184,96";
 
 const clamp01 = n => Math.min(1, Math.max(0, n));
 const smooth = t => t * t * (3 - 2 * t);
@@ -55,6 +55,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
   let cells = [];
   let cellSize = 16;
   let nameBox = null;
+  let colors = getPalette();
   let creamText = null; // the name, pre-drawn in both colours
   let goldText = null;
   let deliveries = []; // blocks flying to the name
@@ -88,6 +89,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
     canvas.height = Math.round(size.h * dpr);
     buildName(heroRect);
     buildScene(heroRect);
+    onScroll(); // whether it fades depends on the layout
     stars = Array.from({ length: Math.round((size.w * size.h) / 6500) }, () => ({
       x: Math.random() * size.w,
       y: Math.random() * size.h,
@@ -136,8 +138,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
     cellSize = Math.max(8, Math.min(22, Math.round(fontSize / 9)));
     reach = Math.max(30, fontSize * 0.3);
 
-    creamText = drawName(heroRect, `rgb(${CREAM})`);
-    goldText = drawName(heroRect, `rgb(${GOLD})`);
+    colourName(heroRect);
 
     const x0 = Math.floor(nameBox.left);
     const y0 = Math.floor(nameBox.top);
@@ -162,6 +163,12 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
         }
       }
     }
+  }
+
+  function colourName(heroRect) {
+    colors = getPalette();
+    creamText = drawName(heroRect, `rgb(${colors.name})`);
+    goldText = drawName(heroRect, `rgb(${colors.block})`);
   }
 
   // Draw every character exactly where the browser laid it out
@@ -424,7 +431,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
     const shown = reduceMotion ? 1 : clamp01(clock / 500);
 
     stars.forEach(s => {
-      ctx.fillStyle = `rgba(${CREAM},${s.a * shown})`;
+      ctx.fillStyle = `rgba(${colors.star},${s.a * shown * colors.starAlpha})`;
       ctx.fillRect(s.x, s.y, s.r, s.r);
     });
 
@@ -457,7 +464,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
       const x = u * u * d.sx + 2 * u * e * d.mx + e * e * d.cell.cx;
       const y = u * u * d.sy + 2 * u * e * d.my + e * e * d.cell.cy;
       const s = 5 + (cellSize * 0.75 - 5) * e;
-      ctx.fillStyle = `rgba(${GOLD},${Math.min(1, d.t * 8) * 0.95})`;
+      ctx.fillStyle = `rgba(${colors.block},${Math.min(1, d.t * 8) * 0.95})`;
       ctx.fillRect(x - s / 2, y - s / 2, s, s);
     });
   }
@@ -468,18 +475,18 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
     const x = you.x + 16;
     const y = you.y + 18;
     roundRect(ctx, x, y, 92, 22, 4);
-    ctx.fillStyle = `rgba(11,13,20,${0.92 * a})`;
+    ctx.fillStyle = `rgba(${colors.tag},${0.92 * a})`;
     ctx.fill();
     ctx.lineWidth = 1;
-    ctx.strokeStyle = `rgba(${GOLD},${(0.45 + you.flash * 0.5) * a})`;
+    ctx.strokeStyle = `rgba(${colors.block},${(0.45 + you.flash * 0.5) * a})`;
     ctx.stroke();
     ctx.font = '500 11px "Poppins", sans-serif';
     ctx.textBaseline = "middle";
-    ctx.fillStyle = `rgba(${CREAM},${a})`;
+    ctx.fillStyle = `rgba(${colors.name},${a})`;
     ctx.fillText("you", x + 8, y + 12);
     for (let i = 0; i < PIECES; i++) {
       const on = you.have & (1 << i);
-      ctx.fillStyle = on ? `rgba(${GOLD},${a})` : `rgba(${CREAM},${0.16 * a})`;
+      ctx.fillStyle = on ? `rgba(${colors.block},${a})` : `rgba(${colors.name},${0.16 * a})`;
       ctx.fillRect(x + 35 + i * 6.2, y + 8, 4.6, 6);
     }
   }
@@ -536,8 +543,8 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
   function onScroll() {
     if (reduceMotion) return;
     const h = size.h || window.innerHeight;
-    const y = Math.max(0, Math.min(window.scrollY, h));
-    hero.style.transform = y ? `translate3d(0, ${(y * 0.22).toFixed(1)}px, 0)` : "";
+    // the line that leaves the hero has to stay joined to the one below, so it does not fade there
+    const y = plan && plan.exit ? 0 : Math.max(0, Math.min(window.scrollY, h));
     hero.style.opacity = y ? clamp01(1 - y / (h * 0.75)).toFixed(3) : "";
   }
 
@@ -547,6 +554,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
       if (!nameBox) return;
       // mobile browsers resize when the URL bar hides; the hero itself has not changed then
       const r = hero.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return; // hidden
       if (Math.abs(r.width - size.w) < 1 && Math.abs(r.height - size.h) < 1) return;
       intro = false;
       deliveries = [];
@@ -601,6 +609,12 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
       run();
     });
 
+  const offTheme = onThemeChange(() => {
+    if (!nameBox) return;
+    colourName(hero.getBoundingClientRect());
+    draw();
+  });
+
   observer.observe(section);
   window.addEventListener("pointermove", onPointerMove, { passive: true });
   window.addEventListener("pointerdown", onPointerDown, { passive: true });
@@ -615,6 +629,7 @@ export function startHeroMachines({ section, hero, name, canvas, onReady, view }
     if (rafId !== null) cancelAnimationFrame(rafId);
     clearTimeout(resizeTimer);
     observer.disconnect();
+    offTheme();
     name.style.opacity = "";
     name.style.animation = "";
     name.style.transition = "";

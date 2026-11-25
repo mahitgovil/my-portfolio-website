@@ -1,0 +1,188 @@
+/* What I do */
+#skills {
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(3rem, 5vw, 5rem);
+  background-color: var(--page); /* carries straight on from About */
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+}
+
+.work {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2.5rem clamp(1.5rem, 2.4vw, 2.5rem);
+  margin: clamp(2rem, 3vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work__art {
+  display: block;
+  width: 100%;
+  max-height: 250px;
+  overflow: visible;
+}
+
+.work h3 {
+  margin: 1rem 0 0.6rem;
+  color: var(--heading);
+  font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.work__tools {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work__tools li {
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+/* ---------- the drawings ---------- */
+#skills .work > li:not(.is-lit) .iso-box polygon {
+  stroke-opacity: 0.3;
+}
+
+#skills .work > li:not(.is-lit) .iso-ink {
+  opacity: 0.12;
+}
+
+.work__button {
+  fill: var(--gold);
+  stroke: none;
+}
+
+.work__cursor {
+  fill: var(--heading);
+  stroke: var(--face-left);
+  stroke-width: 1.5;
+}
+
+.is-lit .work__cursor {
+  animation: work-click 2.6s ease-in-out infinite;
+}
+
+.is-lit .work__button {
+  animation: work-press 2.6s ease-in-out infinite;
+}
+
+@keyframes work-click {
+  0%,
+  100% {
+    transform: translate(26px, 16px);
+  }
+
+  40%,
+  60% {
+    transform: none;
+  }
+
+  50% {
+    transform: translate(-1px, -2px);
+  }
+}
+
+@keyframes work-press {
+  50% {
+    fill: var(--hot);
+  }
+}
+
+.work__lens circle {
+  fill: rgba(244, 190, 104, 0.1);
+}
+
+.is-lit .work__lens {
+  animation: work-look 5s ease-in-out infinite;
+}
+
+@keyframes work-look {
+  0%,
+  100% {
+    transform: translate(38px, -62px);
+  }
+
+  33% {
+    transform: translate(-52px, -46px);
+  }
+
+  66% {
+    transform: translate(4px, -8px);
+  }
+}
+
+@media (max-width: 991px) {
+  .work {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .work > li {
+    width: calc((100% - 2 * 2.5rem) / 3);
+  }
+}
+
+/* phones: drawing beside the text */
+@media (max-width: 600px) {
+  #skills > .container {
+    padding-inline: 1.5rem;
+  }
+
+  .work {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .work > li {
+    display: grid;
+    width: auto;
+    grid-template-columns: 128px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1.25rem;
+  }
+
+  .work__art {
+    grid-row: 1 / 3;
+  }
+
+  .work h3 {
+    align-self: end;
+    margin: 0 0 0.25rem;
+    font-size: 1.35rem;
+    text-align: left;
+  }
+
+  .work__tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: start;
+    gap: 0 0.9rem;
+  }
+
+  .work__tools li {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #skills *,
+  #skills *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #skills .iso-words {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- shared with the sections below ---------- */

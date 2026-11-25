@@ -31,7 +31,7 @@
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  color: var(--hero-cream);
+  color: #f9f1e9;
 }
 
 .hero__hi {
@@ -73,7 +73,7 @@
   margin: 1.75rem 0 0;
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   line-height: 1.6;
-  color: var(--on-dark);
+  color: #d4d7de;
 }
 
 .hero__actions {
@@ -96,7 +96,7 @@
   min-height: 48px;
   padding: 0 1.6rem;
   border-radius: 4px;
-  background: var(--hero-cream);
+  background: #f9f1e9;
   color: var(--ink);
   font-weight: 600;
   transition: background-color 0.2s ease;
@@ -104,7 +104,7 @@
 
 .hero__button:hover,
 .hero__button:focus-visible {
-  background: var(--hero-gold);
+  background: #e9b465;
   color: var(--ink);
 }
 
@@ -112,7 +112,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  color: var(--hero-cream);
+  color: #f9f1e9;
   font-weight: 500;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .hero__actions .hero__link:hover {
-  color: var(--hero-gold);
+  color: #e9b465;
   text-decoration-color: currentColor;
 }
 
@@ -138,13 +138,13 @@
   place-content: center;
   width: 44px;
   height: 48px;
-  color: var(--hero-cream);
+  color: #f9f1e9;
   font-size: 1.4rem;
   transition: color 0.2s ease;
 }
 
 .hero__social a:hover {
-  color: var(--hero-gold);
+  color: #e9b465;
 }
 
 .hero__actions a:focus-visible {

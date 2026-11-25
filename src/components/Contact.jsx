@@ -1,227 +1,117 @@
 import React, { useState } from "react";
-import "../styles/Contact.css";
 import axios from "axios";
+import "../styles/Contact.css";
 
-// Direct ways to reach me (same destinations as the footer icons)
-const CONTACT_LINKS = [
-  {
-    icon: "fa-envelope",
-    label: "Email",
-    value: "mahitgovil@live.com",
-    href: "mailto:mahitgovil@live.com",
-  },
-  {
-    icon: "fa-linkedin",
-    label: "LinkedIn",
-    value: "in/mahitgovil",
-    href: "https://www.linkedin.com/in/mahitgovil/",
-  },
-  {
-    icon: "fa-github",
-    label: "GitHub",
-    value: "github.com/mahitgovil",
-    href: "https://github.com/mahitgovil",
-  },
+const EMAIL = "mahitgovil@live.com";
+
+const LINKS = [
+  ["LinkedIn", "https://www.linkedin.com/in/mahitgovil/"],
+  ["GitHub", "https://github.com/mahitgovil"],
 ];
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [sending, setSending] = useState(false);
+const EMPTY = { name: "", email: "", message: "" };
 
-  const handleChange = e => {
+// status: "", "sending", "sent" or "error"
+function useContactForm() {
+  const [formData, setFormData] = useState(EMPTY);
+  const [status, setStatus] = useState("");
+
+  const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // clear the previous result as soon as the visitor starts typing again
-    if (message) setMessage("");
+    if (status !== "sending") setStatus("");
   };
 
-  const handleSubmit = async e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    if (sending) return;
-    setSending(true);
-    setMessage("");
+    if (status === "sending") return;
+    setStatus("sending");
     try {
-      const response = await axios.post(
-        "https://formspree.io/f/mrgnyqkd",
-        formData,
-        {
-          headers: {
-            // Formspree requires the Content-Type to be set to 'application/json'
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response.data);
-      setFormData({ name: "", email: "", message: "" });
-      setMessage("Message has been sent successfully. Thanks");
-      setIsError(false);
-    } catch (err) {
-      console.log(err);
-      setMessage("An error occurred. Please try again.");
-      setIsError(true);
-    } finally {
-      setSending(false);
+      await axios.post("https://formspree.io/f/mrgnyqkd", formData, {
+        // Formspree requires the Content-Type to be set to 'application/json'
+        headers: { "Content-Type": "application/json" },
+      });
+      setFormData(EMPTY);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
     }
   };
 
+  const bind = name => ({
+    id: `contact-${name}`,
+    name,
+    value: formData[name],
+    onChange,
+    required: true,
+    ...(name !== "message" && { type: name === "email" ? "email" : "text", autoComplete: name }),
+  });
+
+  return { bind, onSubmit, status };
+}
+
+// always rendered so screen readers announce the result
+const Status = ({ status }) => (
+  <p className={`contact__status is-${status}`} role="status">
+    {status === "sent" && "Sent. I'll get back to you soon."}
+    {status === "error" && (
+      <>
+        That didn't send. Try again, or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </>
+    )}
+  </p>
+);
+
+// the form is a shell session
+export default function Contact() {
+  const { bind, onSubmit, status } = useContactForm();
   return (
     <section id="contact">
-      <div className="container mt-3 contactContent site-heading contact-detail">
-        {/* <!-------------------------- form Header ------------------------------------> */}
-
-        <h2 className="text-center">Get in Touch</h2>
-        {/* <!-------------------------- form SubHeading --------------------------------> */}
-
-        <span className="heading-sec__sub">
-          Feel free to Contact me by submitting the form below and I will get
-          back to you as soon as possible
-        </span>
-
-        <div className="contact__layout">
-          {/* <!-------------------------- info card --------------------------------> */}
-          <aside className="contact__info" data-aos="fade-up">
-            <span className="contact__badge">
-              <span className="contact__badge-dot" aria-hidden="true"></span>
-              Open to opportunities
-            </span>
-            <h3 className="contact__info-title">
-              Let's build something together.
-            </h3>
-            <p className="contact__info-text">
-              Have a role, a project or just a question in mind? Send a message
-              or reach out directly through any of these.
+      <div className="container">
+        <h2 className="about__heading">
+          Get in <span>touch</span>
+        </h2>
+        <p className="contact__open">I'm open to work.</p>
+        <form className="term" onSubmit={onSubmit}>
+          <div className="term__bar" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div className="term__body">
+            <p aria-hidden="true">
+              <b>$</b> contact mahit
             </p>
-
-            <ul className="contact__links">
-              {CONTACT_LINKS.map(link => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    {...(link.href.startsWith("http")
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    <span className="contact__links-icon" aria-hidden="true">
-                      <i className={`fa ${link.icon}`}></i>
-                    </span>
-                    <span className="contact__links-text">
-                      <span className="contact__links-label">{link.label}</span>
-                      <span className="contact__links-value">{link.value}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </aside>
-
-          {/* <!-------------------------- form card --------------------------------> */}
-          <div
-            className="contact__form-card"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <h3 className="contact__form-title">Send me a message</h3>
-
-            <form onSubmit={handleSubmit}>
-              <div className="contact__form-row">
-                <div className="contact__form-field">
-                  <label className="contact__form-label" htmlFor="contact-name">
-                    Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    className="contact__form-input"
-                    placeholder="Your name"
-                    autoComplete="name"
-                    required
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="contact__form-field">
-                  <label
-                    className="contact__form-label"
-                    htmlFor="contact-email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    className="contact__form-input"
-                    placeholder="you@example.com"
-                    autoComplete="email"
-                    required
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div className="contact__form-field">
-                <label
-                  className="contact__form-label"
-                  htmlFor="contact-message"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  className="contact__form-input"
-                  value={formData.message}
-                  rows="6"
-                  placeholder="How can I help?"
-                  required
-                  onChange={handleChange}
-                ></textarea>
-              </div>
-
-              <div className="contact__form-footer">
-                <p className="contact__hint">
-                  I'll get back to you as soon as possible.
-                </p>
-                <button type="submit" id="contact-submit" disabled={sending}>
-                  {sending ? (
-                    <>
-                      <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>
-                      Sending…
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* always rendered so screen readers announce the result */}
-              <div role="status" aria-live="polite">
-                {message && (
-                  <p
-                    className={`message ${isError ? "error" : "success"}`}
-                  >
-                    <i
-                      className={`fa ${
-                        isError ? "fa-exclamation-circle" : "fa-check-circle"
-                      }`}
-                      aria-hidden="true"
-                    ></i>
-                    {message}
-                  </p>
+            {["name", "email", "message"].map(name => (
+              <div className="term__line" key={name}>
+                <label htmlFor={`contact-${name}`}>{name}:</label>
+                {name === "message" ? (
+                  <textarea rows={4} {...bind(name)} />
+                ) : (
+                  <input {...bind(name)} />
                 )}
               </div>
-            </form>
+            ))}
+            <div className="term__line term__line--send">
+              <b aria-hidden="true">$</b>
+              <button type="submit" disabled={status === "sending"}>
+                {status === "sending" ? "sending…" : "send"}
+              </button>
+            </div>
+            <Status status={status} />
           </div>
+        </form>
+        <div className="contact__row">
+          <a className="contact__email" href={`mailto:${EMAIL}`}>
+            {EMAIL}
+          </a>
+          <p className="contact__profiles">
+            {LINKS.map(([label, href]) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
+            ))}
+          </p>
         </div>
       </div>
     </section>

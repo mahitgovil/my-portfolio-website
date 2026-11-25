@@ -2,12 +2,14 @@
 //
 //   id           unique slug. Also the thumbnail name: public/assets/projects/<id>-640.avif / -960.avif
 //                (and .webp). See "Adding a thumbnail" in the notes at the bottom of this file.
-//   name, type   type must be one of the filter names in Projects.jsx ("Web Development", ...)
-//   description  one or two sentences, shown on hover (desktop) / under the image (touch)
-//   tech         short list of technologies, shown as chips. Can be empty.
+//   name
+//   featured     shown large
+//   lightImage   there is also a <id>-light-640 / -960 screenshot, shown in the light theme
+//   art          a drawing from workArt.jsx, for projects without a screenshot
+//   description  one short sentence
+//   tech         short list of technologies. Can be empty.
 //   imagePosition optional CSS object-position for the thumbnail (default "center"). The tile shape
 //                changes with screen width, so this decides which side of the image survives the crop.
-//   status       optional badge: "live" | "open-source" | "in-progress" | "private"
 //   websiteLink  live demo URL ("" if none)
 //   githubLink   source code URL ("" if none)
 //
@@ -15,14 +17,63 @@
 
 export const projects = [
   {
+    id: "atlas-search",
+    lightImage: true,
+    name: "Atlas Search",
+    featured: true,
+    description: "A full-text search engine, written from scratch.",
+    tech: ["C++20", "React", "TypeScript"],
+    websiteLink: "",
+    githubLink: "",
+  },
+  {
+    id: "cinematch",
+    name: "CineMatch",
+    featured: true,
+    description: "A movie recommender that learns from what you like.",
+    tech: ["React", "TypeScript", "FastAPI", "scikit-learn"],
+    websiteLink: "",
+    githubLink: "",
+  },
+  {
+    id: "netwatch",
+    lightImage: true,
+    name: "NetWatch",
+    featured: true,
+    description: "Monitors a home network and shows which layer is broken.",
+    tech: ["Python", "SQLite"],
+    websiteLink: "",
+    githubLink: "",
+  },
+  {
+    id: "shell",
+    name: "Shell",
+    featured: true,
+    art: "shell",
+    // TODO: add the tech, links and a screenshot
+    description: "My own command-line shell.",
+    tech: [],
+    websiteLink: "",
+    githubLink: "",
+  },
+  {
+    id: "bittorrent",
+    name: "P2P BitTorrent",
+    featured: true,
+    art: "net",
+    // TODO: add the tech, links and a screenshot
+    description: "Peer-to-peer file sharing.",
+    tech: [],
+    websiteLink: "",
+    githubLink: "",
+  },
+  {
     id: "stackoverflow-clone",
     imagePosition: "left center",
     name: "Stackoverflow Clone",
-    type: "Web Development",
     description:
-      "A Stack Overflow-style Q&A platform: React and Redux front end, Node.js and Express API on MySQL.",
+      "A Q&A platform with accounts, questions and votes.",
     tech: ["React", "Redux", "Node.js", "Express", "MySQL", "Sass"],
-    status: "live",
     websiteLink: "https://stackoverflow-clone-client.vercel.app/",
     githubLink: "https://github.com/mahitgovil/Stackoverflow-Clone",
   },
@@ -30,46 +81,21 @@ export const projects = [
     id: "sudoku-solver",
     imagePosition: "30% center",
     name: "Sudoku Solver",
-    type: "Web Development",
     description:
-      "Solves Sudoku boards with a backtracking algorithm and can visualise every step of the solution.",
+      "Solves Sudoku and shows every step.",
     tech: ["React", "Bootstrap", "Backtracking"],
-    status: "live",
     websiteLink: "https://sudoku-solver-nine.vercel.app/",
     githubLink: "https://github.com/mahitgovil/Sudoku-Solver",
-  },
-  {
-    id: "chat-app",
-    name: "Chat App",
-    type: "App Dev",
-    // TODO: add the real tech stack, a status badge and a repo / demo link for this project.
-    // The description below only reflects what the screenshot shows (email + Google sign-in).
-    description: "A chat app with email and Google sign-in.",
-    tech: [],
-    websiteLink: "",
-    githubLink: "",
   },
   {
     id: "plant-disease-prediction",
     imagePosition: "left center",
     name: "Plant Disease Prediction",
-    type: "Machine Learning",
     description:
-      "Upload a photo of a plant leaf and an ML model identifies the disease, through a Streamlit app.",
+      "Identifies plant diseases from a photo of a leaf.",
     tech: ["Python", "TensorFlow", "Streamlit", "NumPy"],
-    status: "open-source",
     websiteLink: "",
     githubLink: "https://github.com/mahitgovil/Plant-disease-prediction",
-  },
-  {
-    id: "coffee-shop",
-    name: "Coffee Shop Website",
-    type: "Web Development",
-    description: "A responsive landing page for a coffee shop.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    status: "live",
-    websiteLink: "https://mahitgovil.github.io/coffee-shop-website/",
-    githubLink: "https://github.com/mahitgovil/coffee-shop-website",
   },
 ];
 

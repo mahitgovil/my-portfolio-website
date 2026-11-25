@@ -12,3 +12,6 @@ To restore it, from the `frontend` folder:
 3. `heroMachines.js` and `isoView.js` in `src/components` are then unused and can be deleted.
 
 The nebula photo is from ESO. Its licence asks for a visible credit on the page.
+
+The nebula is dark in both themes. Copying `index.html` also drops the script that applies the saved
+theme before the first paint, so put that back from git.

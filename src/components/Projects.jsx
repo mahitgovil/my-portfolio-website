@@ -1,176 +1,98 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/Projects.css";
 import { projects } from "../data/projects";
+import { WorkArt } from "./workArt";
 
-const FILTERS = ["All", "Web Development", "App Dev", "Machine Learning"];
+const BASE = `${import.meta.env.BASE_URL}assets/projects`;
+const srcSet = (id, ext) => [640, 960].map(w => `${BASE}/${id}-${w}.${ext} ${w}w`).join(", ");
 
-const STATUS_LABELS = {
-  live: "Live",
-  "open-source": "Open source",
-  "in-progress": "In progress",
-  private: "Private",
-};
-
-// Thumbnails live in public/assets/projects/ (see the notes at the bottom of src/data/projects.js)
-const THUMB_BASE = `${import.meta.env.BASE_URL}assets/projects`;
-const THUMB_WIDTHS = [640, 960];
-const thumbSrcSet = (id, ext) =>
-  THUMB_WIDTHS.map(w => `${THUMB_BASE}/${id}-${w}.${ext} ${w}w`).join(", ");
-// how wide the tile is at each breakpoint, so the browser downloads the right size
-const THUMB_SIZES =
-  "(max-width: 480px) calc(100vw - 2rem), (max-width: 768px) calc(50vw - 1.5rem), 380px";
-
-// Only real links become buttons: empty links are skipped (they used to reload the page),
-// and when the "website" is just the GitHub repo it is shown once, as "Code".
-function getProjectLinks(project) {
-  const links = [];
-  const { websiteLink, githubLink } = project;
-  if (websiteLink && websiteLink !== githubLink) {
-    links.push({
-      kind: "demo",
-      label: "Live demo",
-      icon: "fa-external-link",
-      href: websiteLink,
-    });
-  }
-  if (githubLink) {
-    links.push({
-      kind: "code",
-      label: "Code",
-      icon: "fa-github",
-      href: githubLink,
-    });
-  }
-  return links;
+function Picture({ project, sizes, id = project.id, className = "" }) {
+  return (
+    <picture className={`shot ${className}`}>
+      <source type="image/avif" srcSet={srcSet(id, "avif")} sizes={sizes} />
+      <img
+        src={`${BASE}/${id}-960.webp`}
+        srcSet={srcSet(id, "webp")}
+        sizes={sizes}
+        width="960"
+        height="720"
+        alt={`${project.name} screenshot`}
+        style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  );
 }
 
-export default function Project() {
-  const [selectedFilter, setSelectedFilter] = useState("All");
-  const [hasFiltered, setHasFiltered] = useState(false);
+// a screenshot, or a drawing for projects without a screen to show
+function Shot({ project, sizes }) {
+  if (project.art)
+    return (
+      <span className="shot shot--art is-lit">
+        <WorkArt art={project.art} />
+      </span>
+    );
+  // the app has a light theme too: show the matching one (the hidden one is never downloaded)
+  if (project.lightImage)
+    return (
+      <>
+        <Picture project={project} sizes={sizes} className="shot--for-dark" />
+        <Picture project={project} sizes={sizes} id={`${project.id}-light`} className="shot--for-light" />
+      </>
+    );
+  return <Picture project={project} sizes={sizes} />;
+}
 
-  const handleFilter = filter => {
-    if (filter === selectedFilter) return;
-    setSelectedFilter(filter);
-    setHasFiltered(true);
-  };
+function Tech({ items }) {
+  return items.length > 0 && <p className="project__tech">{items.join(", ")}</p>;
+}
 
-  const filteredProjects =
-    selectedFilter === "All"
-      ? projects
-      : projects.filter(project => project.type === selectedFilter);
+function Links({ project }) {
+  const links = [
+    ["Live demo", project.websiteLink],
+    ["Code", project.githubLink],
+  ].filter(([, href]) => href);
+  return (
+    links.length > 0 && (
+      <p className="project__links">
+        {links.map(([label, href]) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${label}: ${project.name}`}
+          >
+            {label}
+          </a>
+        ))}
+      </p>
+    )
+  );
+}
 
+export default function Projects() {
   return (
     <section id="projects">
-      <div className="site-heading">
-        <p className="section__text__p1">Browse My Recent</p>
-        <h2 className="title">Projects</h2>
-      </div>
-      <div className="filter-title" role="group" aria-label="Filter projects">
-        {FILTERS.map(filter => (
-          <button
-            type="button"
-            key={filter}
-            className={`filter-category ${
-              selectedFilter === filter ? "selected-filter" : ""
-            }`}
-            aria-pressed={selectedFilter === filter}
-            onClick={() => handleFilter(filter)}
-          >
-            <span>{filter}</span>
-          </button>
-        ))}
-      </div>
-      {/* key={selectedFilter} re-mounts the grid on a filter change so every tile replays its
-          entrance animation (only after the first filter click, not on page load) */}
-      <div
-        className={`projectPage${hasFiltered ? " projectPage--animate" : ""}`}
-        key={selectedFilter}
-      >
-        {filteredProjects.map((project, index) => {
-          const links = getProjectLinks(project);
-          return (
-            <article
-              className="project-item"
-              key={project.id}
-              style={{ "--i": index }}
-            >
-              <picture className="project-picture">
-                <source
-                  type="image/avif"
-                  srcSet={thumbSrcSet(project.id, "avif")}
-                  sizes={THUMB_SIZES}
-                />
-                <source
-                  type="image/webp"
-                  srcSet={thumbSrcSet(project.id, "webp")}
-                  sizes={THUMB_SIZES}
-                />
-                <img
-                  src={`${THUMB_BASE}/${project.id}-960.webp`}
-                  srcSet={thumbSrcSet(project.id, "webp")}
-                  sizes={THUMB_SIZES}
-                  width="960"
-                  height="720"
-                  alt={`${project.name} screenshot`}
-                  style={
-                    project.imagePosition
-                      ? { objectPosition: project.imagePosition }
-                      : undefined
-                  }
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-
-              {project.status && (
-                <span
-                  className={`project-status project-status--${project.status}`}
-                >
-                  <span className="project-status__dot" aria-hidden="true"></span>
-                  {STATUS_LABELS[project.status]}
-                </span>
-              )}
-
-              <div className="overlay">
-                <div className="overlay-content">
-                  <div className="project-text">
-                    <span className="project-type">{project.type}</span>
-                    <h3 className="project-name">{project.name}</h3>
-                    {project.description && (
-                      <p className="project-desc">{project.description}</p>
-                    )}
-                    {project.tech.length > 0 && (
-                      <ul className="project-tech" aria-label="Technologies used">
-                        {project.tech.map(t => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                  {links.length > 0 && (
-                    <div className="cap">
-                      {links.map(link => (
-                        <a
-                          key={link.label}
-                          className={`project-link project-link--${link.kind}`}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${link.label}: ${project.name}`}
-                        >
-                          <i className={`fa ${link.icon}`} aria-hidden="true"></i>
-                          <span className="project-link__label">
-                            {link.label}
-                          </span>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
+      <div className="container">
+        <h2 className="about__heading">Projects</h2>
+        <ul className="pgrid">
+          {projects.map(project => (
+            <li key={project.id} className={project.featured ? "pgrid__big" : "pgrid__small"}>
+              <Shot
+                project={project}
+                sizes={project.featured ? "(max-width: 767px) 92vw, 620px" : "(max-width: 767px) 120px, 410px"}
+              />
+              <div className="pgrid__text">
+                <h3>{project.name}</h3>
+                <p>{project.description}</p>
+                <Tech items={project.tech} />
+                <Links project={project} />
               </div>
-            </article>
-          );
-        })}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

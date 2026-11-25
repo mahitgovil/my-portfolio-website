@@ -4,6 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mahit Govil</title>
+    <meta
+      name="description"
+      content="Mahit Govil, software engineer. Web apps in React and FastAPI, and the systems underneath: a search engine in C++, a shell and peer-to-peer transfer."
+    />
+    <meta name="theme-color" content="#04060b" />
+    <!-- the saved theme, before the first paint (components/theme.js) -->
+    <script>
+      try {
+        if (localStorage.getItem("theme") === "light") {
+          document.documentElement.dataset.theme = "light";
+          document.querySelector('meta[name="theme-color"]').content = "#e9eef5";
+        }
+      } catch (e) {}
+    </script>
 
     <!-- Fonts: connect early and load with <link> (the old CSS @import only started
          after the main CSS file had been downloaded and parsed) -->
@@ -68,12 +82,5 @@
       </section>
     </div>
     <script type="module" src="/src/index.jsx"></script>
-    <!-- defer: this used to block the page until it had downloaded -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

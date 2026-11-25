@@ -1,24 +1,183 @@
-/* Page colours.
-   The page alternates light / dark section by section:
-     Hero (dark) -> About (paper) -> Skills (charcoal) -> Projects (paper) -> Contact + Footer (ink)
-   Each section reads its colours from these variables, so flipping a section back is a matter of
-   changing that section's background and text colours in its own stylesheet. */
+/* Colours and page defaults. Everything takes its colours from here; the hero's canvas has the same
+   ones in components/theme.js. */
 
+/* dark is the default */
 :root {
-  --ink: #0d0f14; /* near-black with a faint blue tint, same family as the hero (#04060b) */
-  --charcoal: #16181d;
-  --paper: #f5f5f5;
-  --accent: #9cd9f9; /* the pale blue from the hero animation; use sparingly */
-  --hero-cream: #f9f1e9; /* landing screen text */
-  --hero-gold: #e9b465; /* hover / current-page accents on dark */
+  --page: #04060b;
+  --heading: #f9f1e9;
+  --text: #d4d7de;
+  --text-muted: #9aa0ab;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --underline: rgba(249, 241, 233, 0.4);
+  --focus: #fff;
+  --press: rgba(255, 255, 255, 0.12);
+  --bar: #0d0f14; /* navbar, once the page has scrolled */
+  --button: #f9f1e9;
+  --button-text: #0d0f14;
 
-  /* text on the dark sections (checked against both --ink and --charcoal for WCAG AA) */
-  --on-dark: #d4d7de; /* body text, 13:1 on ink */
-  --on-dark-muted: #9aa0ab; /* secondary text, 7:1 on ink */
-  --on-dark-heading: #fff;
-  --hairline-dark: rgba(255, 255, 255, 0.1);
+  /* lines, and text in an accent colour */
+  --teal: #8ec4cc;
+  --gold: #e9b465;
+  --cream: #e0ddd6;
 
-  /* very faint film grain, generated in CSS (no image download). Layered over the dark
-     sections so they feel printed rather than flat digital black. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  /* drawings: an outline and three faces for each colour; the same ones are in components/theme.js */
+  --teal-line: #7fdbe6;
+  --teal-top: #1d4150;
+  --teal-left: #14303c;
+  --teal-right: #0e222c;
+  --gold-line: #ffc463;
+  --gold-top: #4d3a1a;
+  --gold-left: #382a13;
+  --gold-right: #281d0c;
+  --cream-line: #f1ece0;
+  --cream-top: #2d384b;
+  --cream-left: #202938;
+  --cream-right: #171d2a;
+  --floor-top: #172236;
+  --floor-left: #111a2a;
+  --floor-right: #0c131f;
+  --glow: rgba(30, 46, 76, 0.75);
+  --lit: #ffd27a;
+  --off: rgba(241, 236, 224, 0.2);
+  --hot: #fff4dc;
+  --panel: #0b121d;
+  --panel-glow: #14203a;
+  --panel-line: rgba(142, 196, 204, 0.3);
+  /* the contact terminal and its messages */
+  --term-bg: #080d16;
+  --term-line: rgba(142, 196, 204, 0.35);
+  --term-field: #0f1724; /* visible before it is used */
+  --term-field-hover: #151f30;
+  --ok: #9fd8a4;
+  --bad: #f0a08e;
+
+  --shot-frame: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  --glow-soft: rgba(30, 46, 76, 0.5);
+  --stars: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760' fill='%23f9f1e9'%3E%3Crect x='469' y='579' width='1.1' height='1.1' fill-opacity='0.55'/%3E%3Crect x='468' y='526' width='1.1' height='1.1' fill-opacity='0.29'/%3E%3Crect x='530' y='493' width='1.1' height='1.1' fill-opacity='0.56'/%3E%3Crect x='102' y='463' width='1.1' height='1.1' fill-opacity='0.24'/%3E%3Crect x='716' y='655' width='1.8' height='1.8' fill-opacity='0.64'/%3E%3Crect x='469' y='675' width='1.1' height='1.1' fill-opacity='0.49'/%3E%3Crect x='644' y='21' width='1.1' height='1.1' fill-opacity='0.23'/%3E%3Crect x='42' y='200' width='1.1' height='1.1' fill-opacity='0.47'/%3E%3Crect x='481' y='340' width='1.1' height='1.1' fill-opacity='0.58'/%3E%3Crect x='537' y='245' width='1.1' height='1.1' fill-opacity='0.42'/%3E%3Crect x='684' y='93' width='1.1' height='1.1' fill-opacity='0.33'/%3E%3Crect x='570' y='91' width='1.1' height='1.1' fill-opacity='0.34'/%3E%3Crect x='241' y='531' width='1.1' height='1.1' fill-opacity='0.23'/%3E%3Crect x='116' y='416' width='1.8' height='1.8' fill-opacity='0.33'/%3E%3Crect x='74' y='23' width='1.1' height='1.1' fill-opacity='0.20'/%3E%3Crect x='220' y='59' width='1.1' height='1.1' fill-opacity='0.64'/%3E%3Crect x='412' y='435' width='1.8' height='1.8' fill-opacity='0.48'/%3E%3Crect x='697' y='282' width='1.1' height='1.1' fill-opacity='0.34'/%3E%3Crect x='21' y='425' width='1.1' height='1.1' fill-opacity='0.25'/%3E%3Crect x='258' y='729' width='1.8' height='1.8' fill-opacity='0.23'/%3E%3Crect x='504' y='187' width='1.1' height='1.1' fill-opacity='0.28'/%3E%3Crect x='527' y='201' width='1.1' height='1.1' fill-opacity='0.55'/%3E%3Crect x='435' y='665' width='1.1' height='1.1' fill-opacity='0.38'/%3E%3Crect x='223' y='6' width='1.1' height='1.1' fill-opacity='0.64'/%3E%3Crect x='612' y='317' width='1.1' height='1.1' fill-opacity='0.21'/%3E%3Crect x='197' y='409' width='1.1' height='1.1' fill-opacity='0.47'/%3E%3Crect x='596' y='108' width='1.8' height='1.8' fill-opacity='0.27'/%3E%3Crect x='458' y='270' width='1.8' height='1.8' fill-opacity='0.47'/%3E%3Crect x='309' y='401' width='1.8' height='1.8' fill-opacity='0.24'/%3E%3Crect x='602' y='657' width='1.1' height='1.1' fill-opacity='0.47'/%3E%3Crect x='386' y='643' width='1.1' height='1.1' fill-opacity='0.63'/%3E%3Crect x='501' y='594' width='1.8' height='1.8' fill-opacity='0.37'/%3E%3Crect x='648' y='163' width='1.1' height='1.1' fill-opacity='0.30'/%3E%3Crect x='631' y='261' width='1.1' height='1.1' fill-opacity='0.27'/%3E%3Crect x='650' y='573' width='1.1' height='1.1' fill-opacity='0.63'/%3E%3Crect x='500' y='624' width='1.8' height='1.8' fill-opacity='0.22'/%3E%3Crect x='117' y='45' width='1.1' height='1.1' fill-opacity='0.31'/%3E%3Crect x='727' y='407' width='1.1' height='1.1' fill-opacity='0.57'/%3E%3Crect x='616' y='508' width='1.1' height='1.1' fill-opacity='0.28'/%3E%3Crect x='743' y='76' width='1.8' height='1.8' fill-opacity='0.42'/%3E%3Crect x='675' y='636' width='1.1' height='1.1' fill-opacity='0.33'/%3E%3Crect x='214' y='22' width='1.8' height='1.8' fill-opacity='0.39'/%3E%3Crect x='261' y='67' width='1.8' height='1.8' fill-opacity='0.33'/%3E%3Crect x='549' y='591' width='1.1' height='1.1' fill-opacity='0.24'/%3E%3Crect x='147' y='467' width='1.1' height='1.1' fill-opacity='0.50'/%3E%3Crect x='713' y='540' width='1.1' height='1.1' fill-opacity='0.26'/%3E%3Crect x='41' y='24' width='1.1' height='1.1' fill-opacity='0.36'/%3E%3Crect x='325' y='40' width='1.8' height='1.8' fill-opacity='0.49'/%3E%3Crect x='499' y='74' width='1.1' height='1.1' fill-opacity='0.34'/%3E%3Crect x='80' y='83' width='1.1' height='1.1' fill-opacity='0.37'/%3E%3Crect x='51' y='726' width='1.8' height='1.8' fill-opacity='0.63'/%3E%3Crect x='355' y='366' width='1.8' height='1.8' fill-opacity='0.41'/%3E%3Crect x='85' y='433' width='1.1' height='1.1' fill-opacity='0.21'/%3E%3Crect x='517' y='592' width='1.8' height='1.8' fill-opacity='0.50'/%3E%3Crect x='394' y='602' width='1.8' height='1.8' fill-opacity='0.23'/%3E%3Crect x='98' y='660' width='1.8' height='1.8' fill-opacity='0.32'/%3E%3Crect x='432' y='751' width='1.1' height='1.1' fill-opacity='0.62'/%3E%3Crect x='716' y='600' width='1.1' height='1.1' fill-opacity='0.41'/%3E%3C/svg%3E");
+  --floor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='69.28' height='40'%3E%3Cpath d='M0 20L34.64 0L69.28 20L34.64 40Z' fill='none' stroke='%238ec4cc' stroke-opacity='.3'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+/* the same in both */
+:root {
+  --ink: #0d0f14; /* text on gold */
+  --gold-fill: #e9b465;
+}
+
+/* a blueprint on pale paper */
+:root[data-theme="light"] {
+  --page: #e9eef5;
+  --heading: #14203a;
+  --text: #33405a;
+  --text-muted: #55617a;
+  --hairline: rgba(20, 32, 58, 0.16);
+  --underline: rgba(20, 32, 58, 0.4);
+  --focus: #14203a;
+  --press: rgba(20, 32, 58, 0.1);
+  --bar: #f6f8fb;
+  --button: #14203a;
+  --button-text: #fff;
+
+  --teal: #1a6572;
+  --gold: #96590a;
+  --cream: #2b3a55;
+
+  /* drawings: an outline and three faces for each colour; the same ones are in components/theme.js */
+  --teal-line: #0f6270;
+  --teal-top: #d3eef1;
+  --teal-left: #b4dde2;
+  --teal-right: #94cad1;
+  --gold-line: #8a4d00;
+  --gold-top: #fff0d2;
+  --gold-left: #f5d99f;
+  --gold-right: #e8c17a;
+  --cream-line: #22304d;
+  --cream-top: #ffffff;
+  --cream-left: #dde4ef;
+  --cream-right: #bfcadb;
+  --floor-top: #f7fafd;
+  --floor-left: #dbe4ee;
+  --floor-right: #c5d1df;
+  --glow: rgba(255, 255, 255, 0.55);
+  --lit: #b35c00;
+  --off: rgba(34, 48, 77, 0.2);
+  --hot: #14203a;
+  --panel: #f2f5fa;
+  --panel-glow: #fff;
+  --panel-line: rgba(26, 101, 114, 0.35);
+  --term-bg: #fff;
+  --term-line: rgba(26, 101, 114, 0.3);
+  --term-field: #edf1f7;
+  --term-field-hover: #e1e8f1;
+  --ok: #1d6b34;
+  --bad: #a8382a;
+
+  /* a dark screenshot on pale paper: an edge and a soft shadow, like a window on a desk */
+  --shot-frame: 0 0 0 1px rgba(20, 32, 58, 0.16), 0 18px 34px -14px rgba(20, 32, 58, 0.45);
+  --glow-soft: rgba(255, 255, 255, 0.7);
+  --stars: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760' fill='%2314203a'%3E%3Crect x='469' y='579' width='1.1' height='1.1' fill-opacity='0.22'/%3E%3Crect x='468' y='526' width='1.1' height='1.1' fill-opacity='0.11'/%3E%3Crect x='530' y='493' width='1.1' height='1.1' fill-opacity='0.22'/%3E%3Crect x='102' y='463' width='1.1' height='1.1' fill-opacity='0.10'/%3E%3Crect x='716' y='655' width='1.8' height='1.8' fill-opacity='0.26'/%3E%3Crect x='469' y='675' width='1.1' height='1.1' fill-opacity='0.20'/%3E%3Crect x='644' y='21' width='1.1' height='1.1' fill-opacity='0.09'/%3E%3Crect x='42' y='200' width='1.1' height='1.1' fill-opacity='0.19'/%3E%3Crect x='481' y='340' width='1.1' height='1.1' fill-opacity='0.23'/%3E%3Crect x='537' y='245' width='1.1' height='1.1' fill-opacity='0.17'/%3E%3Crect x='684' y='93' width='1.1' height='1.1' fill-opacity='0.13'/%3E%3Crect x='570' y='91' width='1.1' height='1.1' fill-opacity='0.14'/%3E%3Crect x='241' y='531' width='1.1' height='1.1' fill-opacity='0.09'/%3E%3Crect x='116' y='416' width='1.8' height='1.8' fill-opacity='0.13'/%3E%3Crect x='74' y='23' width='1.1' height='1.1' fill-opacity='0.08'/%3E%3Crect x='220' y='59' width='1.1' height='1.1' fill-opacity='0.26'/%3E%3Crect x='412' y='435' width='1.8' height='1.8' fill-opacity='0.19'/%3E%3Crect x='697' y='282' width='1.1' height='1.1' fill-opacity='0.14'/%3E%3Crect x='21' y='425' width='1.1' height='1.1' fill-opacity='0.10'/%3E%3Crect x='258' y='729' width='1.8' height='1.8' fill-opacity='0.09'/%3E%3Crect x='504' y='187' width='1.1' height='1.1' fill-opacity='0.11'/%3E%3Crect x='527' y='201' width='1.1' height='1.1' fill-opacity='0.22'/%3E%3Crect x='435' y='665' width='1.1' height='1.1' fill-opacity='0.15'/%3E%3Crect x='223' y='6' width='1.1' height='1.1' fill-opacity='0.25'/%3E%3Crect x='612' y='317' width='1.1' height='1.1' fill-opacity='0.08'/%3E%3Crect x='197' y='409' width='1.1' height='1.1' fill-opacity='0.19'/%3E%3Crect x='596' y='108' width='1.8' height='1.8' fill-opacity='0.11'/%3E%3Crect x='458' y='270' width='1.8' height='1.8' fill-opacity='0.19'/%3E%3Crect x='309' y='401' width='1.8' height='1.8' fill-opacity='0.10'/%3E%3Crect x='602' y='657' width='1.1' height='1.1' fill-opacity='0.19'/%3E%3Crect x='386' y='643' width='1.1' height='1.1' fill-opacity='0.25'/%3E%3Crect x='501' y='594' width='1.8' height='1.8' fill-opacity='0.15'/%3E%3Crect x='648' y='163' width='1.1' height='1.1' fill-opacity='0.12'/%3E%3Crect x='631' y='261' width='1.1' height='1.1' fill-opacity='0.11'/%3E%3Crect x='650' y='573' width='1.1' height='1.1' fill-opacity='0.25'/%3E%3Crect x='500' y='624' width='1.8' height='1.8' fill-opacity='0.09'/%3E%3Crect x='117' y='45' width='1.1' height='1.1' fill-opacity='0.13'/%3E%3Crect x='727' y='407' width='1.1' height='1.1' fill-opacity='0.23'/%3E%3Crect x='616' y='508' width='1.1' height='1.1' fill-opacity='0.11'/%3E%3Crect x='743' y='76' width='1.8' height='1.8' fill-opacity='0.17'/%3E%3Crect x='675' y='636' width='1.1' height='1.1' fill-opacity='0.13'/%3E%3Crect x='214' y='22' width='1.8' height='1.8' fill-opacity='0.15'/%3E%3Crect x='261' y='67' width='1.8' height='1.8' fill-opacity='0.13'/%3E%3Crect x='549' y='591' width='1.1' height='1.1' fill-opacity='0.10'/%3E%3Crect x='147' y='467' width='1.1' height='1.1' fill-opacity='0.20'/%3E%3Crect x='713' y='540' width='1.1' height='1.1' fill-opacity='0.11'/%3E%3Crect x='41' y='24' width='1.1' height='1.1' fill-opacity='0.14'/%3E%3Crect x='325' y='40' width='1.8' height='1.8' fill-opacity='0.19'/%3E%3Crect x='499' y='74' width='1.1' height='1.1' fill-opacity='0.14'/%3E%3Crect x='80' y='83' width='1.1' height='1.1' fill-opacity='0.15'/%3E%3Crect x='51' y='726' width='1.8' height='1.8' fill-opacity='0.25'/%3E%3Crect x='355' y='366' width='1.8' height='1.8' fill-opacity='0.17'/%3E%3Crect x='85' y='433' width='1.1' height='1.1' fill-opacity='0.09'/%3E%3Crect x='517' y='592' width='1.8' height='1.8' fill-opacity='0.20'/%3E%3Crect x='394' y='602' width='1.8' height='1.8' fill-opacity='0.09'/%3E%3Crect x='98' y='660' width='1.8' height='1.8' fill-opacity='0.13'/%3E%3Crect x='432' y='751' width='1.1' height='1.1' fill-opacity='0.25'/%3E%3Crect x='716' y='600' width='1.1' height='1.1' fill-opacity='0.16'/%3E%3C/svg%3E");
+  --floor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='69.28' height='40'%3E%3Cpath d='M0 20L34.64 0L69.28 20L34.64 40Z' fill='none' stroke='%231f7280' stroke-opacity='.3'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+
+/* Bootstrap sets the body font from this; without it the plain text falls back to the system font */
+body {
+  --bs-body-font-family: "Poppins", sans-serif;
+}
+
+/* links to a section, and keyboard focus, end up below the fixed navbar */
+html {
+  scroll-padding-top: 62px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* page defaults */
+a {
+  color: var(--heading);
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-thickness: initial;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* the hero's faint stars, carried on behind every section */
+main {
+  background: var(--stars) center top;
 }

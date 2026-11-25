@@ -10,8 +10,8 @@
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse 48% 70% at 74% 46%, rgba(30, 46, 76, 0.75), transparent 78%),
-    #04060b;
+    radial-gradient(ellipse 48% 70% at 74% 46%, var(--glow), transparent 78%),
+    var(--page);
 }
 
 .hero {
@@ -40,7 +40,7 @@
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  color: var(--hero-cream);
+  color: var(--heading);
 }
 
 .hero__hi {
@@ -83,7 +83,7 @@
   margin: 1.75rem 0 0;
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   line-height: 1.6;
-  color: var(--on-dark);
+  color: var(--text);
 }
 
 .hero__actions {
@@ -106,15 +106,15 @@
   min-height: 48px;
   padding: 0 1.6rem;
   border-radius: 4px;
-  background: var(--hero-cream);
-  color: var(--ink);
+  background: var(--button);
+  color: var(--button-text);
   font-weight: 600;
   transition: background-color 0.2s ease;
 }
 
 .hero__button:hover,
 .hero__button:focus-visible {
-  background: var(--hero-gold);
+  background: var(--gold-fill);
   color: var(--ink);
 }
 
@@ -122,20 +122,20 @@
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  color: var(--hero-cream);
+  color: var(--heading);
   font-weight: 500;
 }
 
 .hero__actions .hero__link {
   text-decoration: underline;
-  text-decoration-color: rgba(249, 241, 233, 0.4);
+  text-decoration-color: var(--underline);
   text-decoration-thickness: 2px;
   text-underline-offset: 8px;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .hero__actions .hero__link:hover {
-  color: var(--hero-gold);
+  color: var(--gold);
   text-decoration-color: currentColor;
 }
 
@@ -148,17 +148,17 @@
   place-content: center;
   width: 44px;
   height: 48px;
-  color: var(--hero-cream);
+  color: var(--heading);
   font-size: 1.4rem;
   transition: color 0.2s ease;
 }
 
 .hero__social a:hover {
-  color: var(--hero-gold);
+  color: var(--gold);
 }
 
 .hero__actions a:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus);
   outline-offset: 4px;
 }
 
@@ -211,8 +211,8 @@
 @media (max-width: 768px) {
   .hero-bg {
     background:
-      radial-gradient(ellipse 110% 46% at 50% 24%, rgba(30, 46, 76, 0.75), transparent 80%),
-      #04060b;
+      radial-gradient(ellipse 110% 46% at 50% 24%, var(--glow), transparent 80%),
+      var(--page);
   }
 
   .hero {

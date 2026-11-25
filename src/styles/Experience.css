@@ -1,0 +1,89 @@
+/* Experience */
+#experience {
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(4rem, 6vw, 6rem);
+  background: radial-gradient(ellipse 38% 48% at 30% 50%, var(--glow-soft), transparent);
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+}
+
+#experience ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#experience h3 {
+  margin: 0;
+  color: var(--heading);
+  font-size: clamp(1.25rem, 1.9vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+#experience .timeline__date {
+  color: var(--text-muted);
+}
+
+#experience .timeline__tech {
+  margin-top: 0.5rem;
+  color: var(--teal);
+}
+
+#experience .timeline {
+  max-width: 820px;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 2.5rem 2.75rem;
+}
+
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  top: 0.8rem;
+  bottom: -0.8rem;
+  left: 7px;
+  width: 2px;
+  background: var(--gold);
+}
+
+.timeline li:last-child::before {
+  display: none;
+}
+
+.timeline li::after {
+  content: "";
+  position: absolute;
+  top: 0.3rem;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--page);
+}
+
+.timeline li:first-child::after {
+  background: var(--gold);
+}
+
+#experience .timeline h3 {
+  margin: 0.1rem 0 0.4rem;
+}
+
+.timeline h3 span {
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  #experience > .container {
+    padding-inline: 1.5rem;
+  }
+}

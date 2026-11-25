@@ -1,0 +1,151 @@
+/* Projects */
+#projects {
+  margin: 0;
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(5rem, 8vw, 8rem);
+  background: var(--page); /* carries straight on from What I do */
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+}
+
+#projects p {
+  color: var(--text);
+}
+
+#projects ul {
+  margin: clamp(2rem, 3vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#projects h3 {
+  margin: 0;
+  color: var(--heading);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.shot {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--panel);
+  aspect-ratio: 4 / 3;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shot--art {
+  display: grid;
+  place-items: center;
+  padding: 8% 10%;
+  border: 1px solid var(--panel-line);
+  background: radial-gradient(closest-side, var(--panel-glow), var(--panel));
+}
+
+#projects .project__tech {
+  margin-top: 0.35rem;
+  color: var(--teal);
+}
+
+.project__links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.35rem;
+}
+
+.project__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--heading);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.project__links a:hover {
+  color: var(--gold);
+}
+
+#projects a:focus-visible,
+#projects button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  #projects > .container {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* ---------- screens ---------- */
+.pscreens {
+  --per-row: 3;
+  --gap: clamp(2rem, 4.5vw, 4.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(2.5rem, 4vw, 4rem) var(--gap);
+}
+
+.pscreens > li {
+  width: calc((100% - (var(--per-row) - 1) * var(--gap)) / var(--per-row));
+}
+
+.pscreens__screen {
+  padding: 10% 4% 13%;
+}
+
+.pscreens .shot {
+  border: 2px solid var(--teal);
+  border-radius: 3px;
+  /* the edge of the screen, as thick as the windows in the hero */
+  box-shadow: 1px -1px 0 var(--teal), 3px -2px 0 #0b121d, 7px -4px 0 #0b121d, 8px -5px 0 var(--teal);
+  transform: skewY(16deg) scale(0.88);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.pscreens li:nth-child(even) .shot {
+  box-shadow: -1px -1px 0 var(--teal), -3px -2px 0 #0b121d, -7px -4px 0 #0b121d, -8px -5px 0 var(--teal);
+  transform: skewY(-16deg) scale(0.88);
+}
+
+.pscreens li:hover .shot,
+.pscreens li:focus-within .shot,
+.pscreens li:nth-child(even):hover .shot,
+.pscreens li:nth-child(even):focus-within .shot {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  transform: none;
+}
+
+.pscreens h3 {
+  margin-bottom: 0.3rem !important;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+@media (max-width: 991px) {
+  .pscreens {
+    --per-row: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .pscreens {
+    --per-row: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projects * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

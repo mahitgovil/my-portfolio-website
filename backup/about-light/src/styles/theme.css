@@ -1,0 +1,24 @@
+/* Page colours.
+   The page alternates light / dark section by section:
+     Hero (dark) -> About (paper) -> Skills (charcoal) -> Projects (paper) -> Contact + Footer (ink)
+   Each section reads its colours from these variables, so flipping a section back is a matter of
+   changing that section's background and text colours in its own stylesheet. */
+
+:root {
+  --ink: #0d0f14; /* near-black with a faint blue tint, same family as the hero (#04060b) */
+  --charcoal: #16181d;
+  --paper: #f5f5f5;
+  --accent: #9cd9f9; /* the pale blue from the hero animation; use sparingly */
+  --hero-cream: #f9f1e9; /* landing screen text */
+  --hero-gold: #e9b465; /* hover / current-page accents on dark */
+
+  /* text on the dark sections (checked against both --ink and --charcoal for WCAG AA) */
+  --on-dark: #d4d7de; /* body text, 13:1 on ink */
+  --on-dark-muted: #9aa0ab; /* secondary text, 7:1 on ink */
+  --on-dark-heading: #fff;
+  --hairline-dark: rgba(255, 255, 255, 0.1);
+
+  /* very faint film grain, generated in CSS (no image download). Layered over the dark
+     sections so they feel printed rather than flat digital black. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+}

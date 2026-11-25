@@ -1,545 +1,188 @@
+/* Projects */
 #projects {
-  padding-top: 4vh;
-  height: 100%;
-  /* side spacing is padding (not margin) so the section's background spans the full width */
   margin: 0;
-  padding-left: 10rem;
-  padding-right: 10rem;
-  /* light "paper" with a faint dot grid. Dark UIs (3 of the screenshots) stand out on light. */
-  background-color: var(--paper);
-  background-image: radial-gradient(rgba(0, 0, 0, 0.085) 1px, transparent 1.3px);
-  background-size: 22px 22px;
-  box-sizing: border-box;
-  min-height: fit-content;
-  padding-bottom: 4rem;
-  position: relative;
-  padding-top: 75px;
-}
-
-/* ---------- filters ---------- */
-.filter-title {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-/* these are <button>s now: reset the browser look, keep the original one */
-.filter-category {
-  cursor: pointer;
-  margin: 0px 15px;
-  padding: 5px 15px;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  font-weight: 400;
-  font-size: 16px;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.25s ease, color 0.25s ease,
-    transform 0.15s ease;
-}
-
-.filter-category:hover {
-  background-color: black;
-  color: white;
-}
-
-.filter-category:active {
-  transform: scale(0.96);
-}
-
-.filter-category:focus-visible {
-  outline: 2px solid #212121;
-  outline-offset: 3px;
-}
-
-.selected-filter {
-  background-color: black;
-  color: white;
-}
-
-/* ---------- project tiles ---------- */
-.projectPage {
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-/* BASE (touch screens / anything without hover): a card, image on top, text underneath */
-.project-item {
-  flex: 1 0 30%; /* Grow, don't shrink, base width */
-  width: 380px;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  margin-bottom: 30px;
-  margin-right: 17px;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden; /* clips the image zoom to the rounded tile */
-  border-radius: 7px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  /* only transform / opacity / shadow are animated (no layout properties) */
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease),
-    opacity 0.3s ease;
-}
-
-.project-picture {
-  display: block;
-  flex: 0 0 auto;
-}
-
-.project-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease);
-}
-
-/* status badge, always visible in the corner of the thumbnail */
-.project-status {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.28rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(10, 12, 18, 0.74);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  color: #fff;
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(5rem, 8vw, 8rem);
+  background: radial-gradient(ellipse 55% min(620px, 24%) at 38% 24%, var(--glow-soft), transparent);
+  color: var(--text);
   font-family: "Poppins", sans-serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.7px;
-  line-height: 1.4;
-  text-transform: uppercase;
 }
 
-.project-status__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #cbd5e1;
+#projects p {
+  color: var(--text);
 }
 
-.project-status--live .project-status__dot {
-  background: #4ade80;
-}
-
-.project-status--open-source .project-status__dot {
-  background: #9cd9f9;
-}
-
-.project-status--in-progress .project-status__dot {
-  background: #fbbf24;
-}
-
-.overlay {
-  flex: 1 1 auto;
-  padding: 16px 18px 18px;
-  color: #222;
-}
-
-.overlay-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.project-text {
-  min-width: 0;
-  text-align: left;
-}
-
-/* category chip */
-.project-type {
-  display: inline-block;
-  margin-bottom: 0.45rem;
-  padding: 0.2rem 0.6rem;
-  border: 1px solid #e4e4e4;
-  border-radius: 999px;
-  background: #f1f1f1;
-  color: #555;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-.project-name {
-  margin: 0;
-  color: #111;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  line-height: 1.3;
-}
-
-.project-desc {
-  margin: 0.55rem 0 0;
-  color: #555;
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0.8rem 0 0;
+#projects ul {
+  margin: clamp(2rem, 3vw, 3rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
-.project-tech li {
+#projects h3 {
   margin: 0;
-  padding: 0.22rem 0.6rem;
-  border-radius: 4px;
-  background: #f1f1f1;
-  color: #444;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  line-height: 1.4;
-  list-style: none;
+  color: var(--heading);
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
-.cap {
+.shot {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--panel);
+  aspect-ratio: 4 / 3;
+}
+
+/* a screenshot taken in the light theme, and one taken in the dark: only one shows */
+.shot--for-light {
+  display: none;
+}
+
+:root[data-theme="light"] .shot--for-light {
+  display: block;
+}
+
+:root[data-theme="light"] .shot--for-dark {
+  display: none;
+}
+
+.shot:not(.shot--art) {
+  box-shadow: var(--shot-frame);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work__art {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.shot--art {
+  display: grid;
+  place-items: center;
+  padding: 8% 10%;
+  border: 1px solid var(--panel-line);
+  background: radial-gradient(closest-side, var(--panel-glow), var(--panel));
+}
+
+#projects .project__tech {
+  margin-top: 0.35rem;
+  color: var(--teal);
+}
+
+.project__links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 1.5rem;
+  margin-top: 0.35rem;
 }
 
-/* link buttons: labelled, 44px tall */
-.project-link {
+.project__links a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   min-height: 44px;
-  padding: 0 18px;
-  border: 1px solid #212121;
-  border-radius: 4px;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  text-decoration: none;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease,
-    border-color 0.2s ease;
+  color: var(--heading);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
 }
 
-.project-link--demo {
-  background: #212121;
-  color: #fff;
+.project__links a:hover {
+  color: var(--gold);
 }
 
-.project-link--code {
-  background: transparent;
-  color: #212121;
+#projects a:focus-visible,
+#projects button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
 }
 
-.project-link:active {
-  transform: scale(0.95);
-}
-
-.project-link:focus-visible {
-  outline: 2px solid #212121;
-  outline-offset: 3px;
-}
-
-/* ---------- hover-capable devices: image fills the tile, details reveal on hover ---------- */
-@media (hover: hover) {
-  .project-item {
-    display: block;
-    height: 300px;
-    background-color: rgba(255, 255, 255, 0.542);
-  }
-
-  .project-picture {
-    height: 100%;
-  }
-
-  .project-item img {
-    height: 100%;
-    aspect-ratio: auto;
-  }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    padding: 18px;
-    color: #fff;
-    opacity: 0;
-    background: linear-gradient(
-      to top,
-      rgba(8, 10, 16, 0.95) 0%,
-      rgba(8, 10, 16, 0.78) 48%,
-      rgba(8, 10, 16, 0.25) 100%
-    );
-    transition: opacity 0.25s var(--ease);
-  }
-
-  .overlay-content {
-    width: 100%;
-    height: auto;
-    justify-content: flex-end;
-    gap: 12px;
-  }
-
-  .project-type {
-    margin-bottom: 0.35rem;
-    border-color: rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.16);
-    color: #fff;
-  }
-
-  .project-name {
-    color: #fff;
-    font-size: 1.1rem;
-  }
-
-  .project-desc {
-    margin-top: 0.4rem;
-    color: rgba(255, 255, 255, 0.86);
-    font-size: 0.82rem;
-    line-height: 1.45;
-    /* cap the reveal at three lines so it always fits the 300px tile */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .project-tech {
-    margin-top: 0.6rem;
-    gap: 5px;
-  }
-
-  .project-tech li {
-    padding: 0.16rem 0.5rem;
-    background: rgba(255, 255, 255, 0.16);
-    color: #fff;
-    font-size: 0.66rem;
-  }
-
-  /* compact pill buttons */
-  .project-link {
-    min-height: 38px;
-    padding: 0 16px;
-    border-color: rgba(255, 255, 255, 0.5);
-    color: #fff;
-    font-size: 0.72rem;
-  }
-
-  .project-link--demo {
-    border-color: #fff;
-    background: #fff;
-    color: #111;
-  }
-
-  .project-link--code {
-    background: rgba(255, 255, 255, 0.14);
-    color: #fff;
-  }
-
-  .project-link--demo:hover {
-    background: #e8e8e8;
-    border-color: #e8e8e8;
-    transform: translateY(-2px);
-  }
-
-  .project-link--code:hover {
-    background: #fff;
-    border-color: #fff;
-    color: #111;
-    transform: translateY(-2px);
-  }
-
-  .project-link:focus-visible {
-    outline-color: #fff;
-  }
-
-  /* text, then buttons, rise in one after the other. The delay only applies on the way in,
-     so leaving the tile is instant and in step with the fade-out. */
-  .project-text,
-  .cap {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.25s var(--ease), transform 0.3s var(--ease);
-  }
-
-  .project-item:hover .overlay,
-  .project-item:focus-within .overlay {
-    opacity: 1;
-  }
-
-  .project-item:hover .project-text,
-  .project-item:focus-within .project-text {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.03s;
-  }
-
-  .project-item:hover .cap,
-  .project-item:focus-within .cap {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.08s;
-  }
-
-  /* the tile lifts and the screenshot zooms */
-  .project-item:hover,
-  .project-item:focus-within {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .project-item:hover img,
-  .project-item:focus-within img {
-    transform: scale(1.06);
-  }
-
-  /* dim the other tiles (same idea as the tech-stack chips in About) */
-  .projectPage:has(.project-item:hover) .project-item:not(:hover) {
-    opacity: 0.6;
-  }
-}
-
-/* ---------- entrance animation after a filter change ---------- */
-@keyframes project-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* "backwards" (not "both"): the tile must not stay locked to the final keyframe,
-   or it could no longer lift on hover */
-.projectPage--animate .project-item {
-  animation: project-in 0.4s var(--ease) backwards;
-  animation-delay: calc(var(--i, 0) * 45ms);
-}
-
-/* <------------------------------------------- Responsive -----------------------------------------> */
 @media (max-width: 768px) {
-  /* 10rem side margins left ~50px of content on a phone */
-  #projects {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 50px;
-    padding-bottom: 2.5rem;
+  #projects > .container {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* ---------- grid ---------- */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(2.5rem, 4vw, 4rem) 0;
+  margin-inline: -0.9rem !important;
+}
+
+.pgrid > li {
+  grid-column: span 3;
+  padding-inline: 0.9rem;
+}
+
+/* the first one takes the full width */
+.pgrid > li:first-child {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.pgrid > .pgrid__small {
+  grid-column: span 2;
+}
+
+.pgrid__text {
+  padding-top: 1rem;
+}
+
+.pgrid h3 {
+  font-size: clamp(1.3rem, 2.3vw, 2rem);
+}
+
+.pgrid > li:first-child h3 {
+  margin-bottom: 0.5rem !important;
+  font-size: clamp(1.7rem, 4vw, 3.4rem);
+}
+
+.pgrid__small h3 {
+  font-size: 1.3rem;
+}
+
+.pgrid .shot img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pgrid li:hover .shot img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 767px) {
+  .pgrid > li,
+  .pgrid > li:first-child,
+  .pgrid > .pgrid__small {
+    display: block;
+    grid-column: 1 / -1;
   }
 
-  /* filters wrap instead of overflowing; each one is a 44px tap target */
-  .filter-title {
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-
-  .filter-category {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    margin: 0;
-    padding: 0 14px;
-    font-size: 14px;
-  }
-
-  /* tablet: two columns */
-  .projectPage {
+  .pgrid > .pgrid__small {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 1.1rem;
   }
 
-  .project-item {
-    width: auto;
-    margin: 0;
-  }
-}
-
-/* phone: one column */
-@media (max-width: 480px) {
-  .projectPage {
-    grid-template-columns: minmax(0, 1fr);
+  .pgrid__small .pgrid__text {
+    padding-top: 0;
   }
 }
 
-/* A narrow window on a desktop (mouse + hover): the tiles are small, so keep only the
-   essentials in the hover reveal (category, name, buttons) */
-@media (hover: hover) and (max-width: 768px) {
-  .project-item {
-    height: clamp(200px, 38vw, 300px);
-  }
-
-  .project-desc,
-  .project-tech {
-    display: none;
-  }
-}
-
-@media (hover: hover) and (max-width: 480px) {
-  .project-item {
-    height: clamp(230px, 62vw, 300px);
-  }
-
-  /* one wide column again: there is room for the description */
-  .project-desc {
-    display: -webkit-box;
-  }
-}
-
-/* ---------- reduced motion: no zoom / lift / slide, just show and hide ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .project-item,
-  .project-item img,
-  .overlay,
-  .project-text,
-  .cap,
-  .project-link,
-  .filter-category {
-    transition: none !important;
+  #projects * {
     animation: none !important;
-  }
-
-  .project-item:hover,
-  .project-item:focus-within,
-  .project-item:hover img,
-  .project-item:focus-within img,
-  .project-text,
-  .cap,
-  .project-link:hover {
-    transform: none !important;
+    transition: none !important;
   }
 }
